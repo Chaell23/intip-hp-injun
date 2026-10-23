@@ -228,10 +228,12 @@
             background: rgba(255, 255, 255, 0.25);
         }
 
-        /* LAYAR UTAMA (IOS HOME SCREEN DENGAN MULTI-PAGE) */
+        /* LAYAR UTAMA (HOME SCREEN DENGAN WALLPAPER SENDIRI) */
         .home-screen {
             flex: 1;
-            background: linear-gradient(135deg, #2b5876, #4e4376);
+            background: linear-gradient(rgba(0,0,0,0.15), rgba(0,0,0,0.35)), url('home-wallpaper.jpg');
+            background-size: cover;
+            background-position: center;
             position: relative;
             display: flex;
             flex-direction: column;
@@ -282,8 +284,9 @@
             overflow: hidden;
         }
         .app-icon svg {
-            width: 34px;
-            height: 34px;
+            width: 32px;
+            height: 32px;
+            display: block;
         }
         .app-icon:active {
             transform: scale(0.92);
@@ -293,7 +296,7 @@
             font-size: 11px;
             font-weight: 500;
             margin-top: 5px;
-            text-shadow: 0 1px 3px rgba(0,0,0,0.7);
+            text-shadow: 0 1px 3px rgba(0,0,0,0.8);
             letter-spacing: -0.2px;
             text-align: center;
         }
@@ -339,7 +342,7 @@
             height: 52px;
         }
 
-        /* DALAM APLIKASI */
+        /* DALAM APLIKASI UMUM */
         .app-content {
             position: absolute;
             top: 0;
@@ -393,6 +396,64 @@
             align-items: center;
             margin-bottom: 8px;
             font-size: 14px;
+        }
+
+        /* STYLING APLIKASI FOTO / GALERI 9 FOTO (GRID 3x3) */
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 3px;
+            overflow-y: auto;
+            flex: 1;
+        }
+        .gallery-thumb {
+            aspect-ratio: 1;
+            background-size: cover;
+            background-position: center;
+            cursor: pointer;
+            transition: opacity 0.2s;
+        }
+        .gallery-thumb:active {
+            opacity: 0.7;
+        }
+
+        /* Fullscreen Photo Viewer Modal */
+        #photoViewer {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: #000;
+            z-index: 80;
+            display: none;
+            flex-direction: column;
+            justify-content: space-between;
+            padding: 50px 0 30px 0;
+            box-sizing: border-box;
+            animation: fadeIn 0.2s ease;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        .viewer-img-container {
+            flex: 1;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow: hidden;
+        }
+        .viewer-img-container img {
+            max-width: 100%;
+            max-height: 100%;
+            object-fit: contain;
+        }
+        .viewer-header {
+            padding: 0 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
         }
     </style>
 </head>
@@ -492,10 +553,10 @@
                         </div>
                         <div class="app-name">Twitter</div>
                     </div>
-                    <!-- RedNote (Xiaohongshu) -->
+                    <!-- RedNote -->
                     <div class="app-item" onclick="openApp('rednote')">
                         <div class="app-icon" style="background: #ff2442;">
-                            <svg viewBox="0 0 24 24" fill="#fff"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-6h2v6zm0-8h-2V7h2v2z"/></svg>
+                            <svg viewBox="0 0 24 24" fill="#fff"><path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-2 10h-4v4h-2v-4H7v-2h4V7h2v4h4v2z"/></svg>
                         </div>
                         <div class="app-name">RedNote</div>
                     </div>
@@ -509,13 +570,13 @@
                     <!-- Spotify -->
                     <div class="app-item" onclick="openApp('spotify')">
                         <div class="app-icon" style="background: #1db954;">
-                            <svg viewBox="0 0 24 24" fill="#fff"><path d="M12 0C5.4 0 0 5.4 0 12s5.4 12 12 12 12-5.4 12-12S18.6 0 12 0zm5.521 17.34c-.24.359-.72.48-1.08.24-2.999-1.8-6.781-2.221-11.221-1.2-.42.12-.84-.18-.96-.6-.12-.42.18-.84.6-96 4.8-1.08 9.001-.6 12.48 1.56.36.24.48.72.24 1.08zm1.56-3.48c-.3 .48-.9.6-1.38.3-3.42-2.1-8.64-2.7-12.66-1.44-.54.18-1.14-.12-1.32-.66-.18-.54.12-1.14.66-1.32 4.56-1.38 10.38-.72 14.34 1.68.48.3.66.9.36 1.44zm.12-3.66C14.46 7.92 8.4 7.68 4.92 8.76c-.66.18-1.38-.18-1.56-.84-.18-.66.18-1.38.84-1.56 4.02-1.26 10.74-.96 15.12 1.62.6.36.78 1.14.42 1.74-.36.6-1.14.78-1.74.42z"/></svg>
+                            <svg viewBox="0 0 24 24" fill="#fff"><path d="M12 0C5.4 0 0 5.4 0 12s5.4 12 12 12 12-5.4 12-12S18.6 0 12 0zm5.521 17.34c-.24.359-.72.48-1.08.24-2.999-1.8-6.781-2.221-11.221-1.2-.42.12-.84-.18-.96-.6-.12-.42.18-.84.6-.96 4.8-1.08 9.001-.6 12.48 1.56.36.24.48.72.24 1.08zm1.56-3.48c-.3 .48-.9.6-1.38.3-3.42-2.1-8.64-2.7-12.66-1.44-.54.18-1.14-.12-1.32-.66-.18-.54.12-1.14.66-1.32 4.56-1.38 10.38-.72 14.34 1.68.48.3.66.9.36 1.44zm.12-3.66C14.46 7.92 8.4 7.68 4.92 8.76c-.66.18-1.38-.18-1.56-.84-.18-.66.18-1.38.84-1.56 4.02-1.26 10.74-.96 15.12 1.62.6.36.78 1.14.42 1.74-.36.6-1.14.78-1.74.42z"/></svg>
                         </div>
                         <div class="app-name">Spotify</div>
                     </div>
                     <!-- Olive Young -->
                     <div class="app-item" onclick="openApp('oliveyoung')">
-                        <div class="app-icon" style="background: #00b074; color: #fff; font-weight: bold; font-size: 20px;">OY</div>
+                        <div class="app-icon" style="background: #00b074; color: #fff; font-weight: bold; font-size: 18px; letter-spacing: -1px;">OY</div>
                         <div class="app-name">Olive Young</div>
                     </div>
                     <!-- Google Maps -->
@@ -592,7 +653,7 @@
             </div>
             <div class="dock">
                 <div class="app-item" onclick="openApp('phone')">
-                    <div class="app-icon" style="background: #34c759;"><svg viewBox="0 0 24 24" fill="#fff" style="width:26px;height:26px;"><path d="M6.62 10.79c1.44 2.83 3.76 5.14 6.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1-9.39 0-17-7.61-17-17 0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.11.35.03.74-.25 1.02l-2.2 2.2z"/></svg></div>
+                    <div class="app-icon" style="background: #34c759;"><svg viewBox="0 0 24 24" fill="#fff"><path d="M6.62 10.79c1.44 2.83 3.76 5.14 6.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1-9.39 0-17-7.61-17-17 0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.11.35.03.74-.25 1.02l-2.2 2.2z"/></svg></div>
                 </div>
                 <div class="app-item" onclick="openApp('safari')">
                     <div class="app-icon" style="background: linear-gradient(180deg, #18a0fb, #0060df);"><svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2"><circle cx="12" cy="12" r="10"/><polygon points="16.24 7.76 14.12 14.12 7.76 16.24 9.88 9.88 16.24 7.76" fill="#fff"/></svg></div>
@@ -601,35 +662,59 @@
                     <div class="app-icon" style="background: #fee500;"><svg viewBox="0 0 24 24" fill="#3c1e1e"><path d="M12 3C6.48 3 2 6.58 2 11c0 2.84 1.83 5.32 4.58 6.74-.15.54-.56 1.96-.64 2.27-.1.37.14.36.29.26.12-.08 1.91-1.3 2.68-1.83.68.1 1.39.15 2.09.15 5.52 0 10-3.58 10-8s-4.48-8-10-8z"/></svg></div>
                 </div>
                 <div class="app-item" onclick="openApp('spotify')">
-                    <div class="app-icon" style="background: #1db954;"><svg viewBox="0 0 24 24" fill="#fff"><path d="M12 0C5.4 0 0 5.4 0 12s5.4 12 12 12 12-5.4 12-12S18.6 0 12 0z"/></svg></div>
+                    <div class="app-icon" style="background: #1db954;"><svg viewBox="0 0 24 24" fill="#fff"><path d="M12 0C5.4 0 0 5.4 0 12s5.4 12 12 12 12-5.4 12-12S18.6 0 12 0zm5.521 17.34c-.24.359-.72.48-1.08.24-2.999-1.8-6.781-2.221-11.221-1.2-.42.12-.84-.18-.96-.6-.12-.42.18-.84.6-.96 4.8-1.08 9.001-.6 12.48 1.56.36.24.48.72.24 1.08zm1.56-3.48c-.3 .48-.9.6-1.38.3-3.42-2.1-8.64-2.7-12.66-1.44-.54.18-1.14-.12-1.32-.66-.18-.54.12-1.14.66-1.32 4.56-1.38 10.38-.72 14.34 1.68.48.3.66.9.36 1.44zm.12-3.66C14.46 7.92 8.4 7.68 4.92 8.76c-.66.18-1.38-.18-1.56-.84-.18-.66.18-1.38.84-1.56 4.02-1.26 10.74-.96 15.12 1.62.6.36.78 1.14.42 1.74-.36.6-1.14.78-1.74.42z"/></svg></div>
                 </div>
             </div>
         </div>
     </div>
 
-    <!-- ISI APLIKASI KAKAKAOTALK -->
+    <!-- ISI APLIKASI FOTO / GALERI (9 FOTO) -->
+    <div class="app-content" id="galleryApp">
+        <div class="app-header">
+            <span>Foto</span>
+            <button class="back-ios-btn" onclick="closeApp()">Tutup</button>
+        </div>
+        <div class="gallery-grid">
+            <!-- 9 Slot Foto: Ubah nama file foto1.jpg s.d foto9.jpg sesuai nama file fotomu di GitHub -->
+            <div class="gallery-thumb" style="background-image: url('foto1.jpg');" onclick="openPhoto('foto1.jpg')"></div>
+            <div class="gallery-thumb" style="background-image: url('foto2.jpg');" onclick="openPhoto('foto2.jpg')"></div>
+            <div class="gallery-thumb" style="background-image: url('foto3.jpg');" onclick="openPhoto('foto3.jpg')"></div>
+            <div class="gallery-thumb" style="background-image: url('foto4.jpg');" onclick="openPhoto('foto4.jpg')"></div>
+            <div class="gallery-thumb" style="background-image: url('foto5.jpg');" onclick="openPhoto('foto5.jpg')"></div>
+            <div class="gallery-thumb" style="background-image: url('foto6.jpg');" onclick="openPhoto('foto6.jpg')"></div>
+            <div class="gallery-thumb" style="background-image: url('foto7.jpg');" onclick="openPhoto('foto7.jpg')"></div>
+            <div class="gallery-thumb" style="background-image: url('foto8.jpg');" onclick="openPhoto('foto8.jpg')"></div>
+            <div class="gallery-thumb" style="background-image: url('foto9.jpg');" onclick="openPhoto('foto9.jpg')"></div>
+        </div>
+    </div>
+
+    <!-- FULLSCREEN PHOTO VIEWER MODAL -->
+    <div id="photoViewer">
+        <div class="viewer-header">
+            <button class="back-ios-btn" onclick="closePhoto()">‹ Album</button>
+            <span style="font-size: 14px; font-weight: 500; color: #aaa;">Semua Foto</span>
+            <div style="width: 50px;"></div>
+        </div>
+        <div class="viewer-img-container">
+            <img id="viewerImage" src="" alt="Full Photo">
+        </div>
+    </div>
+
+    <!-- ISI APLIKASI LAINNYA -->
     <div class="app-content" id="chatApp">
         <div class="app-header"><span>KakaoTalk</span><button class="back-ios-btn" onclick="closeApp()">Tutup</button></div>
         <p style="background: #2c2c2e; padding: 14px; border-radius: 12px; font-size: 14px; color: #f2f2f7; line-height: 1.4;">
-            <b>Secret Admirer:</b> Halo Olin! Keren banget simulator HP-nya udah pake logo asli dan ada 2 halaman! ✨
+            <b>Secret Admirer:</b> Wah, galeri fotonya sekarang udah pas 9 foto dengan grid 3x3! Rapi banget! ✨
         </p>
     </div>
 
-    <!-- ISI APLIKASI OLIVE YOUNG -->
     <div class="app-content" id="oliveyoungApp">
         <div class="app-header"><span>Olive Young</span><button class="back-ios-btn" onclick="closeApp()">Tutup</button></div>
-        <div style="background: #00b074; padding: 12px; border-radius: 12px; text-align: center; margin-bottom: 15px; font-weight: bold;">
-            🌿 K-Beauty Special Sale Today!
-        </div>
-        <div style="background: #2c2c2e; padding: 12px; border-radius: 10px; margin-bottom: 10px; font-size: 13px;">
-            <b>Judydoll Tinted Sunscreen SPF50+</b><br><span style="color: #00b074;">₩24,000</span> (Best Seller)
-        </div>
-        <div style="background: #2c2c2e; padding: 12px; border-radius: 10px; font-size: 13px;">
-            <b>Rom&nd Juicy Lasting Tint</b><br><span style="color: #00b074;">₩13,000</span> (Recommended)
-        </div>
+        <div style="background: #00b074; padding: 12px; border-radius: 12px; text-align: center; margin-bottom: 15px; font-weight: bold;">🌿 K-Beauty Special Sale</div>
+        <div style="background: #2c2c2e; padding: 12px; border-radius: 10px; margin-bottom: 10px; font-size: 13px;"><b>Judydoll Tinted Sunscreen</b><br><span style="color: #00b074;">₩24,000</span></div>
+        <div style="background: #2c2c2e; padding: 12px; border-radius: 10px; font-size: 13px;"><b>Rom&nd Juicy Lasting Tint</b><br><span style="color: #00b074;">₩13,000</span></div>
     </div>
 
-    <!-- ISI APLIKASI GOOGLE MAPS -->
     <div class="app-content" id="mapsApp">
         <div class="app-header"><span>Google Maps</span><button class="back-ios-btn" onclick="closeApp()">Tutup</button></div>
         <div style="background: #2c2c2e; padding: 15px; border-radius: 12px; text-align: center;">
@@ -639,7 +724,6 @@
         </div>
     </div>
 
-    <!-- ISI APLIKASI PENGATURAN -->
     <div class="app-content" id="settingsApp">
         <div class="app-header"><span>Pengaturan</span><button class="back-ios-btn" onclick="closeApp()">Tutup</button></div>
         <div class="setting-row"><span>Mode Pesawat</span> <span>Mati</span></div>
@@ -649,7 +733,6 @@
         <div class="setting-row"><span>Penyimpanan</span> <span>142 GB / 256 GB</span></div>
     </div>
 
-    <!-- ISI APLIKASI CUACA -->
     <div class="app-content" id="weatherApp" style="background: linear-gradient(180deg, #1c3b6b, #0d1b2a);">
         <div class="app-header"><span>Cuaca</span><button class="back-ios-btn" onclick="closeApp()">Tutup</button></div>
         <div style="text-align: center; margin-top: 30px;">
@@ -659,7 +742,6 @@
         </div>
     </div>
 
-    <!-- ISI APLIKASI KOMPAS -->
     <div class="app-content" id="compassApp">
         <div class="app-header"><span>Kompas</span><button class="back-ios-btn" onclick="closeApp()">Tutup</button></div>
         <div style="text-align: center; margin-top: 50px;">
@@ -669,15 +751,6 @@
         </div>
     </div>
 
-    <!-- ISI APLIKASI GALERI -->
-    <div class="app-content" id="galleryApp">
-        <div class="app-header"><span>Foto</span><button class="back-ios-btn" onclick="closeApp()">Tutup</button></div>
-        <div style="background: #2c2c2e; padding: 15px; border-radius: 14px; text-align: center; font-size: 13px; color: #f2f2f7;">
-            🖼️ Wallpaper Lock Screen aktif dengan sempurna!
-        </div>
-    </div>
-
-    <!-- ISI APLIKASI UMUM (GENERIC) -->
     <div class="app-content" id="genericApp">
         <div class="app-header"><span id="appNameTitle">Aplikasi</span><button class="back-ios-btn" onclick="closeApp()">Tutup</button></div>
         <p style="text-align: center; color: #8e8e93; margin-top: 50px;">Memuat konten aplikasi...</p>
@@ -773,9 +846,10 @@
         }
     }
 
-    // 4. Navigasi Buka/Tutup Aplikasi
+    // 4. Navigasi Buka/Tutup Aplikasi & Galeri Foto
     function openApp(appName) {
         document.querySelectorAll('.app-content').forEach(el => el.style.display = 'none');
+        document.getElementById('photoViewer').style.display = 'none';
 
         if(appName === 'chat') {
             document.getElementById('chatApp').style.display = 'flex';
@@ -799,6 +873,17 @@
 
     function closeApp() {
         document.querySelectorAll('.app-content').forEach(el => el.style.display = 'none');
+        document.getElementById('photoViewer').style.display = 'none';
+    }
+
+    // Fungsi Interaktif Viewer Foto Fullscreen
+    function openPhoto(imgSrc) {
+        document.getElementById('viewerImage').src = imgSrc;
+        document.getElementById('photoViewer').style.display = 'flex';
+    }
+
+    function closePhoto() {
+        document.getElementById('photoViewer').style.display = 'none';
     }
 </script>
 
