@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>iOS 17 Simulator Pro</title>
+    <title>iOS 17 Simulator Pro Ultimate</title>
     <style>
         body {
             background: #0b0c10;
@@ -228,7 +228,7 @@
             background: rgba(255, 255, 255, 0.25);
         }
 
-        /* LAYAR UTAMA (HOME SCREEN DENGAN WALLPAPER SENDIRI) */
+        /* LAYAR UTAMA (HOME SCREEN) */
         .home-screen {
             flex: 1;
             background: linear-gradient(rgba(0,0,0,0.15), rgba(0,0,0,0.35)), url('home-wallpaper.jpg');
@@ -350,13 +350,14 @@
             width: 100%;
             height: 100%;
             background: #1c1c1e;
-            padding: 55px 20px 25px 20px;
+            padding: 50px 16px 20px 16px;
             box-sizing: border-box;
             display: none;
             flex-direction: column;
             z-index: 65;
             animation: slideUp 0.3s cubic-bezier(0.16, 1, 0.3, 1);
             overflow-y: auto;
+            -webkit-overflow-scrolling: touch;
         }
 
         @keyframes slideUp {
@@ -367,7 +368,7 @@
         .app-header {
             font-size: 20px;
             font-weight: 700;
-            margin-bottom: 15px;
+            margin-bottom: 12px;
             letter-spacing: -0.5px;
             border-bottom: 0.5px solid rgba(255,255,255,0.15);
             padding-bottom: 10px;
@@ -387,37 +388,20 @@
             font-size: 13px;
         }
 
-        .setting-row {
-            background: #2c2c2e;
-            padding: 12px 15px;
-            border-radius: 10px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 8px;
-            font-size: 14px;
-        }
-
-        /* STYLING APLIKASI FOTO / GALERI 9 FOTO (GRID 3x3) */
+        /* FOTO / GALERI STYLING */
         .gallery-grid {
             display: grid;
             grid-template-columns: repeat(3, 1fr);
-            gap: 3px;
-            overflow-y: auto;
-            flex: 1;
+            gap: 2px;
+            padding-bottom: 30px;
         }
         .gallery-thumb {
             aspect-ratio: 1;
             background-size: cover;
             background-position: center;
             cursor: pointer;
-            transition: opacity 0.2s;
-        }
-        .gallery-thumb:active {
-            opacity: 0.7;
         }
 
-        /* Fullscreen Photo Viewer Modal */
         #photoViewer {
             position: absolute;
             top: 0;
@@ -431,11 +415,6 @@
             justify-content: space-between;
             padding: 50px 0 30px 0;
             box-sizing: border-box;
-            animation: fadeIn 0.2s ease;
-        }
-        @keyframes fadeIn {
-            from { opacity: 0; }
-            to { opacity: 1; }
         }
         .viewer-img-container {
             flex: 1;
@@ -449,11 +428,112 @@
             max-height: 100%;
             object-fit: contain;
         }
-        .viewer-header {
-            padding: 0 20px;
+
+        /* KAKAO TALK STYLING */
+        .kakaotalk-header {
+            background: #fee500;
+            color: #3c1e1e;
+            padding: 10px 16px;
+            font-weight: bold;
+            font-size: 18px;
             display: flex;
             justify-content: space-between;
             align-items: center;
+            margin: -50px -16px 15px -16px;
+        }
+        .chat-room-item {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 10px 0;
+            border-bottom: 0.5px solid rgba(255,255,255,0.1);
+            cursor: pointer;
+        }
+        .chat-room-avatar {
+            width: 48px;
+            height: 48px;
+            background: #444;
+            border-radius: 18px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 20px;
+            flex-shrink: 0;
+        }
+        .chat-room-info {
+            flex: 1;
+        }
+        .chat-room-name {
+            font-weight: 600;
+            font-size: 14px;
+            color: #fff;
+        }
+        .chat-room-preview {
+            font-size: 12px;
+            color: #8e8e93;
+            margin-top: 3px;
+        }
+
+        /* INSTAGRAM STYLING */
+        .ig-profile-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 10px 0;
+        }
+        .ig-stats {
+            display: flex;
+            gap: 20px;
+            text-align: center;
+            font-size: 13px;
+        }
+        .ig-stats b {
+            display: block;
+            font-size: 15px;
+        }
+        .ig-tabs {
+            display: flex;
+            justify-content: space-around;
+            border-top: 0.5px solid #333;
+            border-bottom: 0.5px solid #333;
+            margin-top: 10px;
+        }
+        .ig-tab {
+            padding: 10px;
+            cursor: pointer;
+            font-size: 16px;
+            flex: 1;
+            text-align: center;
+        }
+        .ig-tab.active {
+            border-bottom: 2px solid #fff;
+        }
+
+        /* SPOTIFY STYLING */
+        .spotify-card {
+            background: linear-gradient(135deg, #282828, #121212);
+            border-radius: 16px;
+            padding: 20px;
+            text-align: center;
+            margin-top: 20px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+        }
+
+        /* CAMERA STYLING */
+        .camera-viewfinder {
+            flex: 1;
+            background: #222;
+            border-radius: 16px;
+            position: relative;
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .camera-viewfinder video {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
         }
     </style>
 </head>
@@ -476,7 +556,6 @@
         </div>
 
         <div>
-            <!-- Notifikasi Kalender Real-Time -->
             <div class="ios-notification">
                 <div class="notif-header">
                     <span>📅 Kalender • Hari ini</span>
@@ -521,7 +600,7 @@
         <button onclick="closePasscode()" style="background:none; border:none; color:rgba(255,255,255,0.6); margin-top:25px; cursor:pointer; font-size:14px;">Batal</button>
     </div>
 
-    <!-- LAYAR UTAMA (IOS HOME SCREEN DENGAN 2 HALAMAN) -->
+    <!-- LAYAR UTAMA (HOME SCREEN DENGAN 2 HALAMAN) -->
     <div class="home-screen" id="homeScreen">
         <div class="status-bar" style="position: absolute; top: 12px; left: 16px; right: 16px; padding: 0;">
             <span class="clock">19:42</span>
@@ -535,54 +614,54 @@
                     <!-- KakaoTalk -->
                     <div class="app-item" onclick="openApp('chat')">
                         <div class="app-icon" style="background: #fee500;">
-                            <svg viewBox="0 0 24 24" fill="#3c1e1e"><path d="M12 3C6.48 3 2 6.58 2 11c0 2.84 1.83 5.32 4.58 6.74-.15.54-.56 1.96-.64 2.27-.1.37.14.36.29.26.12-.08 1.91-1.3 2.68-1.83.68.1 1.39.15 2.09.15 5.52 0 10-3.58 10-8s-4.48-8-10-8z"/></svg>
+                            <svg viewBox="0 0 24 24" fill="#3c1e1e" style="width:32px;height:32px;"><path d="M12 3C6.48 3 2 6.58 2 11c0 2.84 1.83 5.32 4.58 6.74-.15.54-.56 1.96-.64 2.27-.1.37.14.36.29.26.12-.08 1.91-1.3 2.68-1.83.68.1 1.39.15 2.09.15 5.52 0 10-3.58 10-8s-4.48-8-10-8z"/></svg>
                         </div>
                         <div class="app-name">KakaoTalk</div>
                     </div>
                     <!-- Instagram -->
                     <div class="app-item" onclick="openApp('ig')">
                         <div class="app-icon" style="background: radial-gradient(circle at 30% 107%, #fdf497 0%, #fdf497 5%, #fd5949 45%, #d6249f 60%, #285AEB 90%);">
-                            <svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg>
+                            <svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" style="width:32px;height:32px;"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg>
                         </div>
                         <div class="app-name">Instagram</div>
                     </div>
                     <!-- Twitter / X -->
                     <div class="app-item" onclick="openApp('twitter')">
                         <div class="app-icon" style="background: #000;">
-                            <svg viewBox="0 0 24 24" fill="#fff"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+                            <svg viewBox="0 0 24 24" fill="#fff" style="width:28px;height:28px;"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
                         </div>
                         <div class="app-name">Twitter</div>
-                    </div>
-                    <!-- RedNote -->
-                    <div class="app-item" onclick="openApp('rednote')">
-                        <div class="app-icon" style="background: #ff2442;">
-                            <svg viewBox="0 0 24 24" fill="#fff"><path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-2 10h-4v4h-2v-4H7v-2h4V7h2v4h4v2z"/></svg>
-                        </div>
-                        <div class="app-name">RedNote</div>
                     </div>
                     <!-- YouTube -->
                     <div class="app-item" onclick="openApp('youtube')">
                         <div class="app-icon" style="background: #ff0000;">
-                            <svg viewBox="0 0 24 24" fill="#fff"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>
+                            <svg viewBox="0 0 24 24" fill="#fff" style="width:32px;height:32px;"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>
                         </div>
                         <div class="app-name">YouTube</div>
                     </div>
                     <!-- Spotify -->
                     <div class="app-item" onclick="openApp('spotify')">
                         <div class="app-icon" style="background: #1db954;">
-                            <svg viewBox="0 0 24 24" fill="#fff"><path d="M12 0C5.4 0 0 5.4 0 12s5.4 12 12 12 12-5.4 12-12S18.6 0 12 0zm5.521 17.34c-.24.359-.72.48-1.08.24-2.999-1.8-6.781-2.221-11.221-1.2-.42.12-.84-.18-.96-.6-.12-.42.18-.84.6-.96 4.8-1.08 9.001-.6 12.48 1.56.36.24.48.72.24 1.08zm1.56-3.48c-.3 .48-.9.6-1.38.3-3.42-2.1-8.64-2.7-12.66-1.44-.54.18-1.14-.12-1.32-.66-.18-.54.12-1.14.66-1.32 4.56-1.38 10.38-.72 14.34 1.68.48.3.66.9.36 1.44zm.12-3.66C14.46 7.92 8.4 7.68 4.92 8.76c-.66.18-1.38-.18-1.56-.84-.18-.66.18-1.38.84-1.56 4.02-1.26 10.74-.96 15.12 1.62.6.36.78 1.14.42 1.74-.36.6-1.14.78-1.74.42z"/></svg>
+                            <svg viewBox="0 0 24 24" fill="#fff" style="width:32px;height:32px;"><path d="M12 0C5.4 0 0 5.4 0 12s5.4 12 12 12 12-5.4 12-12S18.6 0 12 0zm5.521 17.34c-.24.359-.72.48-1.08.24-2.999-1.8-6.781-2.221-11.221-1.2-.42.12-.84-.18-.96-.6-.12-.42.18-.84.6-.96 4.8-1.08 9.001-.6 12.48 1.56.36.24.48.72.24 1.08zm1.56-3.48c-.3 .48-.9.6-1.38.3-3.42-2.1-8.64-2.7-12.66-1.44-.54.18-1.14-.12-1.32-.66-.18-.54.12-1.14.66-1.32 4.56-1.38 10.38-.72 14.34 1.68.48.3.66.9.36 1.44zm.12-3.66C14.46 7.92 8.4 7.68 4.92 8.76c-.66.18-1.38-.18-1.56-.84-.18-.66.18-1.38.84-1.56 4.02-1.26 10.74-.96 15.12 1.62.6.36.78 1.14.42 1.74-.36.6-1.14.78-1.74.42z"/></svg>
                         </div>
                         <div class="app-name">Spotify</div>
                     </div>
+                    <!-- Kamera -->
+                    <div class="app-item" onclick="openApp('camera')">
+                        <div class="app-icon" style="background: #e5e5ea;">
+                            <svg viewBox="0 0 24 24" fill="#3a3a3c" style="width:32px;height:32px;"><path d="M4 7h3l2-2h6l2 2h3a2 2 0 0 1 2 2v10a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V9a2 2 0 0 1 2-2zm8 11a5 5 0 1 0 0-10 5 5 0 0 0 0 10z"/></svg>
+                        </div>
+                        <div class="app-name">Kamera</div>
+                    </div>
                     <!-- Olive Young -->
                     <div class="app-item" onclick="openApp('oliveyoung')">
-                        <div class="app-icon" style="background: #00b074; color: #fff; font-weight: bold; font-size: 18px; letter-spacing: -1px;">OY</div>
+                        <div class="app-icon" style="background: #00b074; color: #fff; font-weight: bold; font-size: 18px;">OY</div>
                         <div class="app-name">Olive Young</div>
                     </div>
                     <!-- Google Maps -->
                     <div class="app-item" onclick="openApp('maps')">
                         <div class="app-icon" style="background: #e8eaed;">
-                            <svg viewBox="0 0 24 24"><path fill="#ea4335" d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5a2.5 2.5 0 0 1 0-5 2.5 2.5 0 0 1 0 5z"/></svg>
+                            <svg viewBox="0 0 24 24" style="width:32px;height:32px;"><path fill="#ea4335" d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5a2.5 2.5 0 0 1 0-5 2.5 2.5 0 0 1 0 5z"/></svg>
                         </div>
                         <div class="app-name">Maps</div>
                     </div>
@@ -592,52 +671,45 @@
             <!-- HALAMAN 2 -->
             <div class="home-page">
                 <div class="app-grid">
-                    <!-- Browser / Safari -->
+                    <!-- Safari -->
                     <div class="app-item" onclick="openApp('safari')">
                         <div class="app-icon" style="background: linear-gradient(180deg, #18a0fb, #0060df);">
-                            <svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2"><circle cx="12" cy="12" r="10"/><polygon points="16.24 7.76 14.12 14.12 7.76 16.24 9.88 9.88 16.24 7.76" fill="#fff"/></svg>
+                            <svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" style="width:32px;height:32px;"><circle cx="12" cy="12" r="10"/><polygon points="16.24 7.76 14.12 14.12 7.76 16.24 9.88 9.88 16.24 7.76" fill="#fff"/></svg>
                         </div>
                         <div class="app-name">Safari</div>
-                    </div>
-                    <!-- Kamera -->
-                    <div class="app-item" onclick="openApp('camera')">
-                        <div class="app-icon" style="background: #e5e5ea;">
-                            <svg viewBox="0 0 24 24" fill="#3a3a3c"><path d="M4 7h3l2-2h6l2 2h3a2 2 0 0 1 2 2v10a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V9a2 2 0 0 1 2-2zm8 11a5 5 0 1 0 0-10 5 5 0 0 0 0 10z"/></svg>
-                        </div>
-                        <div class="app-name">Kamera</div>
                     </div>
                     <!-- Catatan -->
                     <div class="app-item" onclick="openApp('notes')">
                         <div class="app-icon" style="background: #ffcc00;">
-                            <svg viewBox="0 0 24 24" fill="#333"><path d="M3 3h18v18H3V3zm3 3v2h12V6H6zm0 4v2h12v-2H6zm0 4v2h8v-2H6z"/></svg>
+                            <svg viewBox="0 0 24 24" fill="#333" style="width:32px;height:32px;"><path d="M3 3h18v18H3V3zm3 3v2h12V6H6zm0 4v2h12v-2H6zm0 4v2h8v-2H6z"/></svg>
                         </div>
                         <div class="app-name">Catatan</div>
                     </div>
                     <!-- Pengaturan -->
                     <div class="app-item" onclick="openApp('settings')">
                         <div class="app-icon" style="background: #8e8e93;">
-                            <svg viewBox="0 0 24 24" fill="#fff"><path d="M19.14 12.94c.04-.3.06-.61.06-.94 0-.32-.02-.64-.07-.94l2.03-1.58c.18-.14.23-.41.12-.61l-1.92-3.32c-.12-.22-.37-.29-.59-.22l-2.39.96c-.5-.38-1.03-.7-1.62-.94l-.36-2.54c-.04-.24-.24-.41-.48-.41h-3.84c-.24 0-.43.17-.47.41l-.36 2.54c-.59.24-1.13.57-1.62.94l-2.39-.96c-.22-.08-.47 0-.59.22L2.74 8.87c-.12.21-.08.47.12.61l2.03 1.58c-.05.3-.09.63-.09.94s.02.64.07.94l-2.03 1.58c-.18.14-.23.41-.12.61l1.92 3.32c.12.22.37.29.59.22l2.39-.96c.5.38 1.03.7 1.62.94l.36 2.54c.05.24.24.41.48.41h3.84c.24 0 .44-.17.47-.41l.36-2.54c.59-.24 1.13-.56 1.62-.94l2.39.96c.22.08.47 0 .59-.22l1.92-3.32c.12-.22.07-.47-.12-.61l-2.01-1.58zM12 15.6c-1.98 0-3.6-1.62-3.6-3.6s1.62-3.6 3.6-3.6 3.6 1.62 3.6 3.6-1.62 3.6-3.6 3.6z"/></svg>
+                            <svg viewBox="0 0 24 24" fill="#fff" style="width:32px;height:32px;"><path d="M19.14 12.94c.04-.3.06-.61.06-.94 0-.32-.02-.64-.07-.94l2.03-1.58c.18-.14.23-.41.12-.61l-1.92-3.32c-.12-.22-.37-.29-.59-.22l-2.39.96c-.5-.38-1.03-.7-1.62-.94l-.36-2.54c-.04-.24-.24-.41-.48-.41h-3.84c-.24 0-.43.17-.47.41l-.36 2.54c-.59.24-1.13.57-1.62.94l-2.39-.96c-.22-.08-.47 0-.59.22L2.74 8.87c-.12.21-.08.47.12.61l2.03 1.58c-.05.3-.09.63-.09.94s.02.64.07.94l-2.03 1.58c-.18.14-.23.41-.12.61l1.92 3.32c.12.22.37.29.59.22l2.39-.96c.5.38 1.03.7 1.62.94l.36 2.54c.05.24.24.41.48.41h3.84c.24 0 .44-.17.47-.41l.36-2.54c.59-.24 1.13-.56 1.62-.94l2.39.96c.22.08.47 0 .59-.22l1.92-3.32c.12-.22.07-.47-.12-.61l-2.01-1.58zM12 15.6c-1.98 0-3.6-1.62-3.6-3.6s1.62-3.6 3.6-3.6 3.6 1.62 3.6 3.6-1.62 3.6-3.6 3.6z"/></svg>
                         </div>
                         <div class="app-name">Pengaturan</div>
                     </div>
                     <!-- Cuaca -->
                     <div class="app-item" onclick="openApp('weather')">
                         <div class="app-icon" style="background: linear-gradient(180deg, #5ac8fa, #007aff);">
-                            <svg viewBox="0 0 24 24" fill="#fff"><path d="M19.35 10.04C18.67 6.59 15.64 4 12 4 9.11 4 6.6 5.64 5.35 8.04 2.34 8.36 0 10.91 0 14c0 3.31 2.69 6 6 6h13c2.76 0 5-2.24 5-5 0-2.64-2.05-4.78-4.65-4.96z"/></svg>
+                            <svg viewBox="0 0 24 24" fill="#fff" style="width:32px;height:32px;"><path d="M19.35 10.04C18.67 6.59 15.64 4 12 4 9.11 4 6.6 5.64 5.35 8.04 2.34 8.36 0 10.91 0 14c0 3.31 2.69 6 6 6h13c2.76 0 5-2.24 5-5 0-2.64-2.05-4.78-4.65-4.96z"/></svg>
                         </div>
                         <div class="app-name">Cuaca</div>
                     </div>
                     <!-- Kompas -->
                     <div class="app-item" onclick="openApp('compass')">
                         <div class="app-icon" style="background: #1c1c1e;">
-                            <svg viewBox="0 0 24 24" fill="#ff3b30"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zm-1-13h2v6h-2zm0 8h2v2h-2z"/></svg>
+                            <svg viewBox="0 0 24 24" fill="#ff3b30" style="width:32px;height:32px;"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zm-1-13h2v6h-2zm0 8h2v2h-2z"/></svg>
                         </div>
                         <div class="app-name">Kompas</div>
                     </div>
-                    <!-- Galeri -->
+                    <!-- Galeri / Foto -->
                     <div class="app-item" onclick="openApp('gallery')">
                         <div class="app-icon" style="background: linear-gradient(135deg, #ff9500, #ff2d55);">
-                            <svg viewBox="0 0 24 24" fill="#fff"><path d="M21 19V5c0-1.1-.9-2-2-2H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2zM8.5 13.5l2.5 3.01L14.5 12l4.5 6H5l3.5-4.5z"/></svg>
+                            <svg viewBox="0 0 24 24" fill="#fff" style="width:32px;height:32px;"><path d="M21 19V5c0-1.1-.9-2-2-2H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2zM8.5 13.5l2.5 3.01L14.5 12l4.5 6H5l3.5-4.5z"/></svg>
                         </div>
                         <div class="app-name">Foto</div>
                     </div>
@@ -653,61 +725,186 @@
             </div>
             <div class="dock">
                 <div class="app-item" onclick="openApp('phone')">
-                    <div class="app-icon" style="background: #34c759;"><svg viewBox="0 0 24 24" fill="#fff"><path d="M6.62 10.79c1.44 2.83 3.76 5.14 6.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1-9.39 0-17-7.61-17-17 0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.11.35.03.74-.25 1.02l-2.2 2.2z"/></svg></div>
+                    <div class="app-icon" style="background: #34c759;"><svg viewBox="0 0 24 24" fill="#fff" style="width:26px;height:26px;"><path d="M6.62 10.79c1.44 2.83 3.76 5.14 6.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1-9.39 0-17-7.61-17-17 0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.11.35.03.74-.25 1.02l-2.2 2.2z"/></svg></div>
                 </div>
                 <div class="app-item" onclick="openApp('safari')">
-                    <div class="app-icon" style="background: linear-gradient(180deg, #18a0fb, #0060df);"><svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2"><circle cx="12" cy="12" r="10"/><polygon points="16.24 7.76 14.12 14.12 7.76 16.24 9.88 9.88 16.24 7.76" fill="#fff"/></svg></div>
+                    <div class="app-icon" style="background: linear-gradient(180deg, #18a0fb, #0060df);"><svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" style="width:26px;height:26px;"><circle cx="12" cy="12" r="10"/><polygon points="16.24 7.76 14.12 14.12 7.76 16.24 9.88 9.88 16.24 7.76" fill="#fff"/></svg></div>
                 </div>
                 <div class="app-item" onclick="openApp('chat')">
-                    <div class="app-icon" style="background: #fee500;"><svg viewBox="0 0 24 24" fill="#3c1e1e"><path d="M12 3C6.48 3 2 6.58 2 11c0 2.84 1.83 5.32 4.58 6.74-.15.54-.56 1.96-.64 2.27-.1.37.14.36.29.26.12-.08 1.91-1.3 2.68-1.83.68.1 1.39.15 2.09.15 5.52 0 10-3.58 10-8s-4.48-8-10-8z"/></svg></div>
+                    <div class="app-icon" style="background: #fee500;"><svg viewBox="0 0 24 24" fill="#3c1e1e" style="width:26px;height:26px;"><path d="M12 3C6.48 3 2 6.58 2 11c0 2.84 1.83 5.32 4.58 6.74-.15.54-.56 1.96-.64 2.27-.1.37.14.36.29.26.12-.08 1.91-1.3 2.68-1.83.68.1 1.39.15 2.09.15 5.52 0 10-3.58 10-8s-4.48-8-10-8z"/></svg></div>
                 </div>
                 <div class="app-item" onclick="openApp('spotify')">
-                    <div class="app-icon" style="background: #1db954;"><svg viewBox="0 0 24 24" fill="#fff"><path d="M12 0C5.4 0 0 5.4 0 12s5.4 12 12 12 12-5.4 12-12S18.6 0 12 0zm5.521 17.34c-.24.359-.72.48-1.08.24-2.999-1.8-6.781-2.221-11.221-1.2-.42.12-.84-.18-.96-.6-.12-.42.18-.84.6-.96 4.8-1.08 9.001-.6 12.48 1.56.36.24.48.72.24 1.08zm1.56-3.48c-.3 .48-.9.6-1.38.3-3.42-2.1-8.64-2.7-12.66-1.44-.54.18-1.14-.12-1.32-.66-.18-.54.12-1.14.66-1.32 4.56-1.38 10.38-.72 14.34 1.68.48.3.66.9.36 1.44zm.12-3.66C14.46 7.92 8.4 7.68 4.92 8.76c-.66.18-1.38-.18-1.56-.84-.18-.66.18-1.38.84-1.56 4.02-1.26 10.74-.96 15.12 1.62.6.36.78 1.14.42 1.74-.36.6-1.14.78-1.74.42z"/></svg></div>
+                    <div class="app-icon" style="background: #1db954;"><svg viewBox="0 0 24 24" fill="#fff" style="width:26px;height:26px;"><path d="M12 0C5.4 0 0 5.4 0 12s5.4 12 12 12 12-5.4 12-12S18.6 0 12 0zm5.521 17.34c-.24.359-.72.48-1.08.24-2.999-1.8-6.781-2.221-11.221-1.2-.42.12-.84-.18-.96-.6-.12-.42.18-.84.6-.96 4.8-1.08 9.001-.6 12.48 1.56.36.24.48.72.24 1.08zm1.56-3.48c-.3 .48-.9.6-1.38.3-3.42-2.1-8.64-2.7-12.66-1.44-.54.18-1.14-.12-1.32-.66-.18-.54.12-1.14.66-1.32 4.56-1.38 10.38-.72 14.34 1.68.48.3.66.9.36 1.44zm.12-3.66C14.46 7.92 8.4 7.68 4.92 8.76c-.66.18-1.38-.18-1.56-.84-.18-.66.18-1.38.84-1.56 4.02-1.26 10.74-.96 15.12 1.62.6.36.78 1.14.42 1.74-.36.6-1.14.78-1.74.42z"/></svg></div>
                 </div>
             </div>
         </div>
     </div>
 
-    <!-- ISI APLIKASI FOTO / GALERI (9 FOTO) -->
-    <div class="app-content" id="galleryApp">
+    <!-- 1. APLIKASI KAKAKAOTALK (ROOMS) -->
+    <div class="app-content" id="chatApp" style="background:#1e1e1e;">
+        <div class="kakaotalk-header">
+            <span>KakaoTalk Chat</span>
+            <button class="back-ios-btn" style="background:#fff; color:#3c1e1e;" onclick="closeApp()">Tutup</button>
+        </div>
+        <div style="display:flex; flex-direction:column; gap:4px;">
+            <div class="chat-room-item" onclick="alert('Membuka Chat Grup: 7dream 4ever')">
+                <div class="chat-room-avatar" style="background:#ffcc00; color:#000;">7️⃣</div>
+                <div class="chat-room-info">
+                    <div class="chat-room-name">7dream 4ever (Mark, Renjun, Jeno, Haechan, Jaemin, Chenle, Jisung)</div>
+                    <div class="chat-room-preview">Mark: Guys kumpul di lantai 3 ya...</div>
+                </div>
+            </div>
+            <div class="chat-room-item" onclick="alert('Membuka Chat Grup: 6dream member only')">
+                <div class="chat-room-avatar" style="background:#ff9500; color:#fff;">6️⃣</div>
+                <div class="chat-room-info">
+                    <div class="chat-room-name">6dream member only (Tanpa Mark)</div>
+                    <div class="chat-room-preview">Haechan: Sst jangan bilang-bilang...</div>
+                </div>
+            </div>
+            <div class="chat-room-item" onclick="alert('Membuka Chat Grup: NCT All Member Only')">
+                <div class="chat-room-avatar" style="background:#007aff; color:#fff;">🌐</div>
+                <div class="chat-room-info">
+                    <div class="chat-room-name">NCT All Member (WayV, 127, Dream, Wish)</div>
+                    <div class="chat-room-preview">Xiaojun: Siapa yang mau pesan kopi?</div>
+                </div>
+            </div>
+            <div class="chat-room-item" onclick="alert('Membuka Chat Pribadi: Renjun')">
+                <div class="chat-room-avatar" style="background:#34c759; color:#fff;">🦊</div>
+                <div class="chat-room-info">
+                    <div class="chat-room-name">Renjun</div>
+                    <div class="chat-room-preview">Lagi di mana?</div>
+                </div>
+            </div>
+            <div class="chat-room-item" onclick="alert('Membuka Chat Pribadi: Jeno')">
+                <div class="chat-room-avatar" style="background:#34c759; color:#fff;">🐶</div>
+                <div class="chat-room-info">
+                    <div class="chat-room-name">Jeno</div>
+                    <div class="chat-room-preview">Udah makan belom?</div>
+                </div>
+            </div>
+            <div class="chat-room-item" onclick="alert('Membuka Chat Pribadi: Jaemin')">
+                <div class="chat-room-avatar" style="background:#34c759; color:#fff;">🐰</div>
+                <div class="chat-room-info">
+                    <div class="chat-room-name">Jaemin</div>
+                    <div class="chat-room-preview">Foto ini lucu banget wkwk</div>
+                </div>
+            </div>
+            <div class="chat-room-item" onclick="alert('Membuka Chat Pribadi: Haechan')">
+                <div class="chat-room-avatar" style="background:#34c759; color:#fff;">🐻</div>
+                <div class="chat-room-info">
+                    <div class="chat-room-name">Haechan</div>
+                    <div class="chat-room-preview">Peer lu udah belum?</div>
+                </div>
+            </div>
+            <div class="chat-room-item" onclick="alert('Membuka Chat Pribadi: Pink Slime Manager')">
+                <div class="chat-room-avatar" style="background:#af52de; color:#fff;">💼</div>
+                <div class="chat-room-info">
+                    <div class="chat-room-name">Pink Slime Manager</div>
+                    <div class="chat-room-preview">Jadwal latihan minggu depan ya.</div>
+                </div>
+            </div>
+            <div class="chat-room-item" onclick="alert('Membuka Chat Pribadi: Baba & Mama')">
+                <div class="chat-room-avatar" style="background:#ff2d55; color:#fff;">❤️</div>
+                <div class="chat-room-info">
+                    <div class="chat-room-name">Baba & Mama</div>
+                    <div class="chat-room-preview">Jangan lupa jaga kesehatan ya nak.</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 2. APLIKASI INSTAGRAM (unknown_sst) -->
+    <div class="app-content" id="igApp" style="background:#000;">
         <div class="app-header">
-            <span>Foto</span>
+            <span>unknown_sst</span>
             <button class="back-ios-btn" onclick="closeApp()">Tutup</button>
         </div>
-        <div class="gallery-grid">
-            <!-- 9 Slot Foto: Ubah nama file foto1.jpg s.d foto9.jpg sesuai nama file fotomu di GitHub -->
-            <div class="gallery-thumb" style="background-image: url('foto1.jpg');" onclick="openPhoto('foto1.jpg')"></div>
-            <div class="gallery-thumb" style="background-image: url('foto2.jpg');" onclick="openPhoto('foto2.jpg')"></div>
-            <div class="gallery-thumb" style="background-image: url('foto3.jpg');" onclick="openPhoto('foto3.jpg')"></div>
-            <div class="gallery-thumb" style="background-image: url('foto4.jpg');" onclick="openPhoto('foto4.jpg')"></div>
-            <div class="gallery-thumb" style="background-image: url('foto5.jpg');" onclick="openPhoto('foto5.jpg')"></div>
-            <div class="gallery-thumb" style="background-image: url('foto6.jpg');" onclick="openPhoto('foto6.jpg')"></div>
-            <div class="gallery-thumb" style="background-image: url('foto7.jpg');" onclick="openPhoto('foto7.jpg')"></div>
-            <div class="gallery-thumb" style="background-image: url('foto8.jpg');" onclick="openPhoto('foto8.jpg')"></div>
-            <div class="gallery-thumb" style="background-image: url('foto9.jpg');" onclick="openPhoto('foto9.jpg')"></div>
+        <div class="ig-profile-header">
+            <div style="width:70px;height:70px;background:#333;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:28px;">👤</div>
+            <div class="ig-stats">
+                <div><b>3</b>Postingan</div>
+                <div><b>10</b>Pengikut</div>
+                <div><b>10</b>Diikuti</div>
+            </div>
+        </div>
+        <div style="font-size:12px; margin-top:8px; color:#fff;"><b>Olin / Oliv</b> ✨<br>Private Account | Just moments.</div>
+        
+        <div class="ig-tabs">
+            <div class="ig-tab active" onclick="switchIgTab('feed')">📸 Feed</div>
+            <div class="ig-tab" onclick="switchIgTab('reels')">▶️ Reels</div>
+        </div>
+
+        <div id="igFeed" style="display:grid; grid-template-columns:repeat(3,1fr); gap:2px; margin-top:10px;">
+            <div class="gallery-thumb" style="background-image:url('foto1.jpg'); height:100px;" onclick="alert('Postingan Feed 1')"></div>
+            <div class="gallery-thumb" style="background-image:url('foto2.jpg'); height:100px;" onclick="alert('Postingan Feed 2')"></div>
+            <div class="gallery-thumb" style="background-image:url('foto3.jpg'); height:100px;" onclick="alert('Postingan Feed 3')"></div>
+        </div>
+
+        <div id="igReels" style="display:none; flex-direction:column; gap:10px; margin-top:10px; text-align:center;">
+            <div style="background:#222; height:220px; border-radius:12px; display:flex; align-items:center; justify-content:center; position:relative;">
+                <video src="https://assets.mixkit.co/videos/preview/mixkit-girl-in-neon-lights-41522-large.mp4" autoplay loop muted style="width:100%; height:100%; object-fit:cover; border-radius:12px;"></video>
+                <div style="position:absolute; bottom:10px; left:10px; font-size:12px; font-weight:bold; text-shadow:0 1px 3px #000;">@unknown_sst • Reels Moment ✨</div>
+            </div>
         </div>
     </div>
 
-    <!-- FULLSCREEN PHOTO VIEWER MODAL -->
-    <div id="photoViewer">
-        <div class="viewer-header">
-            <button class="back-ios-btn" onclick="closePhoto()">‹ Album</button>
-            <span style="font-size: 14px; font-weight: 500; color: #aaa;">Semua Foto</span>
-            <div style="width: 50px;"></div>
+    <!-- 3. APLIKASI SPOTIFY (Renjun Solo Track) -->
+    <div class="app-content" id="spotifyApp" style="background:#121212;">
+        <div class="app-header"><span>Spotify</span><button class="back-ios-btn" onclick="closeApp()">Tutup</button></div>
+        <div style="font-size: 13px; color: #1db954; font-weight: bold; margin-bottom: 10px;">🎧 Rekomendasi Khusus Untukmu</div>
+        
+        <div class="spotify-card">
+            <div style="font-size: 45px; margin-bottom: 10px;">🦊</div>
+            <h3 style="margin:5px 0;">Renjun Solo Track</h3>
+            <p style="color: #b3b3b3; font-size: 13px; margin: 0 0 15px 0;">NCT / Soloist</p>
+            <a href="https://open.spotify.com/intl-id/track/02W2P4Zd9a7LddUMlIH0Bp?si=115a9a36cfcd4c36" target="_blank" style="background: #1db954; color: #fff; padding: 10px 20px; border-radius: 20px; text-decoration: none; font-size: 13px; font-weight: bold; display:inline-block;">Buka di Spotify App</a>
         </div>
-        <div class="viewer-img-container">
-            <img id="viewerImage" src="" alt="Full Photo">
+        <div class="spotify-card" style="margin-top: 15px;">
+            <p style="color: #b3b3b3; font-size: 12px; margin:0;">Alternative Link:</p>
+            <a href="https://open.spotify.com/intl-id/track/02W2P4Zd9a7LddUMlIH0Bp?si=fdc228b4c2024de2" target="_blank" style="color: #1db954; font-size: 12px; word-break: break-all;">Track Session 2 (FD228)</a>
         </div>
     </div>
 
-    <!-- ISI APLIKASI LAINNYA -->
-    <div class="app-content" id="chatApp">
-        <div class="app-header"><span>KakaoTalk</span><button class="back-ios-btn" onclick="closeApp()">Tutup</button></div>
-        <p style="background: #2c2c2e; padding: 14px; border-radius: 12px; font-size: 14px; color: #f2f2f7; line-height: 1.4;">
-            <b>Secret Admirer:</b> Wah, galeri fotonya sekarang udah pas 9 foto dengan grid 3x3! Rapi banget! ✨
-        </p>
+    <!-- 4. APLIKASI YOUTUBE (Airport & Vlogs) -->
+    <div class="app-content" id="youtubeApp" style="background:#0f0f0f;">
+        <div class="app-header"><span>YouTube</span><button class="back-ios-btn" onclick="closeApp()">Tutup</button></div>
+        <div style="font-size: 13px; color: #aaa; margin-bottom: 10px;">✈️ Bandara & Updates</div>
+        <div style="display:flex; flex-direction:column; gap:12px;">
+            <a href="https://youtu.be/FFcgGFpO1n0?si=zSjNYrr7gR9EX_Vz" target="_blank" style="text-decoration:none; color:#fff; background:#212121; border-radius:10px; overflow:hidden; display:block;">
+                <div style="height:110px; background:#333; display:flex; align-items:center; justify-content:center; font-size:24px;">▶️ Airport Fancam 1</div>
+                <div style="padding:10px; font-size:13px; font-weight:600;">NCT Airport Departure / Arrival (FFcg...)</div>
+            </a>
+            <a href="https://youtu.be/4QskmxtudzQ?si=ZAVgO1nlpXV1i19o" target="_blank" style="text-decoration:none; color:#fff; background:#212121; border-radius:10px; overflow:hidden; display:block;">
+                <div style="height:110px; background:#333; display:flex; align-items:center; justify-content:center; font-size:24px;">▶️ Airport Fancam 2</div>
+                <div style="padding:10px; font-size:13px; font-weight:600;">Renjun / Member Focus Airport (4Qsk...)</div>
+            </a>
+            <a href="https://youtu.be/BVOSll9ou7U?si=LdVFfg2Ys9roQpzb" target="_blank" style="text-decoration:none; color:#fff; background:#212121; border-radius:10px; overflow:hidden; display:block;">
+                <div style="height:110px; background:#333; display:flex; align-items:center; justify-content:center; font-size:24px;">▶️ Airport Fancam 3</div>
+                <div style="padding:10px; font-size:13px; font-weight:600;">NCT Dream Flight Moments (BVOS...)</div>
+            </a>
+            <a href="https://youtu.be/LFbU0A1-IH8?si=6l2lczXvFN0MkYtF" target="_blank" style="text-decoration:none; color:#fff; background:#212121; border-radius:10px; overflow:hidden; display:block;">
+                <div style="height:110px; background:#333; display:flex; align-items:center; justify-content:center; font-size:24px;">▶️ Airport Fancam 4</div>
+                <div style="padding:10px; font-size:13px; font-weight:600;">Special Departure Update (LFbU...)</div>
+            </a>
+        </div>
     </div>
 
+    <!-- 5. APLIKASI KAMERA (Live Peeping / Viewfinder Video) -->
+    <div class="app-content" id="cameraApp" style="background:#000;">
+        <div class="app-header"><span>Kamera</span><button class="back-ios-btn" onclick="closeApp()">Tutup</button></div>
+        <div class="camera-viewfinder">
+            <!-- Video simulasi intip / kamera HP -->
+            <video id="cameraFeed" src="https://assets.mixkit.co/videos/preview/mixkit-hands-holding-a-smartphone-with-a-green-screen-42289-large.mp4" autoplay loop muted playsinline></video>
+            <div style="position:absolute; bottom:15px; font-size:11px; background:rgba(0,0,0,0.6); padding:4px 10px; border-radius:20px;" id="camStatus">Kamera Belakang 🟢</div>
+        </div>
+        <div style="display:flex; justify-content:space-around; align-items:center; padding-top:15px;">
+            <div style="font-size:12px; color:#aaa;">Foto</div>
+            <div style="width:55px; height:55px; border:4px solid #fff; border-radius:50%; display:flex; align-items:center; justify-content:center; cursor:pointer;" onclick="alert('Cekrek! Foto tersimpan di Galeri.')"><div style="width:43px; height:43px; background:#fff; border-radius:50%;"></div></div>
+            <div style="font-size:12px; color:#ffcc00; cursor:pointer;" onclick="toggleCamera()">🔄 Putar</div>
+        </div>
+    </div>
+
+    <!-- APLIKASI LAINNYA -->
     <div class="app-content" id="oliveyoungApp">
         <div class="app-header"><span>Olive Young</span><button class="back-ios-btn" onclick="closeApp()">Tutup</button></div>
         <div style="background: #00b074; padding: 12px; border-radius: 12px; text-align: center; margin-bottom: 15px; font-weight: bold;">🌿 K-Beauty Special Sale</div>
@@ -751,9 +948,36 @@
         </div>
     </div>
 
-    <div class="app-content" id="genericApp">
-        <div class="app-header"><span id="appNameTitle">Aplikasi</span><button class="back-ios-btn" onclick="closeApp()">Tutup</button></div>
-        <p style="text-align: center; color: #8e8e93; margin-top: 50px;">Memuat konten aplikasi...</p>
+    <!-- APLIKASI GALERI (9 FOTO) -->
+    <div class="app-content" id="galleryApp">
+        <div class="app-header">
+            <span>Foto</span>
+            <button class="back-ios-btn" onclick="closeApp()">Tutup</button>
+        </div>
+        <div style="font-size: 13px; color: #8e8e93; margin-bottom: 10px; font-weight: 500;">Semua Foto</div>
+        <div class="gallery-grid">
+            <div class="gallery-thumb" style="background-image: url('foto1.jpg');" onclick="openPhoto('foto1.jpg')"></div>
+            <div class="gallery-thumb" style="background-image: url('foto2.jpg');" onclick="openPhoto('foto2.jpg')"></div>
+            <div class="gallery-thumb" style="background-image: url('foto3.jpg');" onclick="openPhoto('foto3.jpg')"></div>
+            <div class="gallery-thumb" style="background-image: url('foto4.jpg');" onclick="openPhoto('foto4.jpg')"></div>
+            <div class="gallery-thumb" style="background-image: url('foto5.jpg');" onclick="openPhoto('foto5.jpg')"></div>
+            <div class="gallery-thumb" style="background-image: url('foto6.jpg');" onclick="openPhoto('foto6.jpg')"></div>
+            <div class="gallery-thumb" style="background-image: url('foto7.jpg');" onclick="openPhoto('foto7.jpg')"></div>
+            <div class="gallery-thumb" style="background-image: url('foto8.jpg');" onclick="openPhoto('foto8.jpg')"></div>
+            <div class="gallery-thumb" style="background-image: url('foto9.jpg');" onclick="openPhoto('foto9.jpg')"></div>
+        </div>
+    </div>
+
+    <!-- FULLSCREEN PHOTO VIEWER MODAL -->
+    <div id="photoViewer">
+        <div class="viewer-header" style="padding:10px 20px; display:flex; justify-content:space-between; align-items:center;">
+            <button class="back-ios-btn" onclick="closePhoto()">‹ Album</button>
+            <span style="font-size: 14px; font-weight: 500; color: #aaa;">Semua Foto</span>
+            <div style="width: 50px;"></div>
+        </div>
+        <div class="viewer-img-container">
+            <img id="viewerImage" src="" alt="Full Photo">
+        </div>
     </div>
 </div>
 
@@ -846,13 +1070,21 @@
         }
     }
 
-    // 4. Navigasi Buka/Tutup Aplikasi & Galeri Foto
+    // 4. Navigasi Buka/Tutup Aplikasi
     function openApp(appName) {
         document.querySelectorAll('.app-content').forEach(el => el.style.display = 'none');
         document.getElementById('photoViewer').style.display = 'none';
 
         if(appName === 'chat') {
             document.getElementById('chatApp').style.display = 'flex';
+        } else if(appName === 'ig') {
+            document.getElementById('igApp').style.display = 'flex';
+        } else if(appName === 'spotify') {
+            document.getElementById('spotifyApp').style.display = 'flex';
+        } else if(appName === 'youtube') {
+            document.getElementById('youtubeApp').style.display = 'flex';
+        } else if(appName === 'camera') {
+            document.getElementById('cameraApp').style.display = 'flex';
         } else if(appName === 'oliveyoung') {
             document.getElementById('oliveyoungApp').style.display = 'flex';
         } else if(appName === 'maps') {
@@ -866,8 +1098,7 @@
         } else if(appName === 'gallery') {
             document.getElementById('galleryApp').style.display = 'flex';
         } else {
-            document.getElementById('appNameTitle').innerText = appName.toUpperCase();
-            document.getElementById('genericApp').style.display = 'flex';
+            alert("Membuka aplikasi " + appName.toUpperCase() + "...");
         }
     }
 
@@ -876,7 +1107,7 @@
         document.getElementById('photoViewer').style.display = 'none';
     }
 
-    // Fungsi Interaktif Viewer Foto Fullscreen
+    // Fungsi Galeri Viewer
     function openPhoto(imgSrc) {
         document.getElementById('viewerImage').src = imgSrc;
         document.getElementById('photoViewer').style.display = 'flex';
@@ -884,6 +1115,32 @@
 
     function closePhoto() {
         document.getElementById('photoViewer').style.display = 'none';
+    }
+
+    // Switch IG Tabs
+    function switchIgTab(tab) {
+        if(tab === 'feed') {
+            document.getElementById('igFeed').style.display = 'grid';
+            document.getElementById('igReels').style.display = 'none';
+        } else {
+            document.getElementById('igFeed').style.display = 'none';
+            document.getElementById('igReels').style.display = 'flex';
+        }
+    }
+
+    // Toggle Camera View
+    let isFrontCamera = false;
+    function toggleCamera() {
+        isFrontCamera = !isFrontCamera;
+        const feed = document.getElementById('cameraFeed');
+        const status = document.getElementById('camStatus');
+        if(isFrontCamera) {
+            feed.src = "https://assets.mixkit.co/videos/preview/mixkit-woman-looking-at-her-smartphone-in-a-room-42867-large.mp4";
+            status.innerText = "Kamera Depan 🟢";
+        } else {
+            feed.src = "https://assets.mixkit.co/videos/preview/mixkit-hands-holding-a-smartphone-with-a-green-screen-42289-large.mp4";
+            status.innerText = "Kamera Belakang 🟢";
+        }
     }
 </script>
 
