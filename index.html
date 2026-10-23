@@ -3,11 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>iPhone Simulator</title>
+    <title>iPhone iOS Simulator</title>
     <style>
         body {
-            background: #0f1015;
-            font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "SF Pro Text", "Helvetica Neue", Helvetica, Arial, sans-serif;
+            background: #0b0c10;
+            font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "SF Pro Text", "Helvetica Neue", sans-serif;
             display: flex;
             justify-content: center;
             align-items: center;
@@ -17,7 +17,7 @@
             overflow: hidden;
         }
 
-        /* Kerangka HP ala iPhone */
+        /* Kerangka HP Ala iPhone */
         .phone-frame {
             width: 375px;
             height: 750px;
@@ -37,15 +37,15 @@
             top: 12px;
             left: 50%;
             transform: translateX(-50%);
-            width: 110px;
+            width: 115px;
             height: 30px;
             background: #000;
             border-radius: 20px;
-            z-index: 50;
+            z-index: 60;
             display: flex;
             align-items: center;
             justify-content: flex-end;
-            padding-right: 8px;
+            padding-right: 9px;
             box-sizing: border-box;
         }
         .island-cam {
@@ -53,7 +53,7 @@
             height: 11px;
             background: #1a1a1a;
             border-radius: 50%;
-            box-shadow: inset 0 0 2px rgba(255,255,255,0.2);
+            box-shadow: inset 0 0 2px rgba(255,255,255,0.3);
         }
 
         /* Status Bar iOS */
@@ -61,10 +61,10 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
-            font-size: 14px;
+            font-size: 13px;
             padding: 16px 28px 0 28px;
             font-weight: 600;
-            z-index: 45;
+            z-index: 55;
             letter-spacing: -0.3px;
         }
 
@@ -75,10 +75,10 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background: linear-gradient(rgba(0,0,0,0.2), rgba(0,0,0,0.6)), url('wallpaper.jpg');
+            background: linear-gradient(rgba(0,0,0,0.2), rgba(0,0,0,0.55)), url('wallpaper.jpg');
             background-size: cover;
             background-position: center;
-            z-index: 40;
+            z-index: 50;
             display: flex;
             flex-direction: column;
             justify-content: space-between;
@@ -90,7 +90,7 @@
 
         .lock-clock-container {
             text-align: center;
-            margin-top: 20px;
+            margin-top: 15px;
         }
 
         .lock-time {
@@ -98,54 +98,56 @@
             font-weight: 300;
             margin: 0;
             letter-spacing: -2px;
-            text-shadow: 0 4px 15px rgba(0,0,0,0.5);
+            text-shadow: 0 4px 15px rgba(0,0,0,0.6);
         }
 
         .lock-date {
             font-size: 17px;
             font-weight: 500;
-            color: rgba(255,255,255,0.9);
+            color: rgba(255,255,255,0.92);
             margin-top: 4px;
-            text-shadow: 0 2px 8px rgba(0,0,0,0.5);
+            text-shadow: 0 2px 8px rgba(0,0,0,0.6);
         }
 
-        /* Notifikasi ala iOS */
+        /* Notifikasi Kalender / Reminder ala iOS */
         .ios-notification {
-            background: rgba(45, 45, 48, 0.65);
+            background: rgba(35, 35, 40, 0.75);
             backdrop-filter: blur(25px);
             -webkit-backdrop-filter: blur(25px);
             border-radius: 20px;
             padding: 14px 18px;
-            box-shadow: 0 8px 32px rgba(0,0,0,0.3);
-            border: 1px solid rgba(255,255,255,0.1);
+            box-shadow: 0 8px 32px rgba(0,0,0,0.4);
+            border: 1px solid rgba(255,255,255,0.12);
             margin-top: auto;
-            margin-bottom: 20px;
+            margin-bottom: 15px;
         }
         .notif-header {
             display: flex;
             justify-content: space-between;
-            font-size: 12px;
+            font-size: 11px;
             color: rgba(255,255,255,0.7);
             margin-bottom: 4px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
         }
         .notif-title {
             font-weight: 600;
             font-size: 14px;
             margin: 0 0 2px 0;
+            color: #ffcc00;
         }
         .notif-text {
             margin: 0;
             font-size: 13px;
-            color: #e5e5ea;
+            color: #f2f2f7;
         }
 
         .home-indicator {
             width: 130px;
             height: 5px;
-            background: rgba(255,255,255,0.7);
+            background: rgba(255,255,255,0.75);
             border-radius: 10px;
             align-self: center;
-            margin-top: 10px;
         }
 
         /* LAYAR MASUKKAN KODE SANDI (PASSCODE) */
@@ -155,10 +157,10 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background: rgba(20, 20, 25, 0.85);
+            background: rgba(20, 20, 25, 0.88);
             backdrop-filter: blur(40px);
             -webkit-backdrop-filter: blur(40px);
-            z-index: 45;
+            z-index: 52;
             display: none;
             flex-direction: column;
             align-items: center;
@@ -168,16 +170,15 @@
         }
 
         .passcode-title {
-            font-size: 18px;
+            font-size: 17px;
             font-weight: 400;
             margin-bottom: 25px;
-            letter-spacing: -0.2px;
         }
 
         .passcode-dots {
             display: flex;
             gap: 18px;
-            margin-bottom: 50px;
+            margin-bottom: 45px;
         }
 
         .p-dot {
@@ -196,7 +197,7 @@
         .keypad {
             display: grid;
             grid-template-columns: repeat(3, 75px);
-            gap: 18px;
+            gap: 16px;
         }
 
         .key-btn {
@@ -229,12 +230,11 @@
         /* LAYAR UTAMA (IOS HOME SCREEN) */
         .home-screen {
             flex: 1;
-            background: linear-gradient(135deg, #1e3c72, #2a5298, #6ee7b7);
-            background-size: cover;
+            background: linear-gradient(135deg, #2b5876, #4e4376);
             position: relative;
             display: flex;
             flex-direction: column;
-            padding: 55px 20px 20px 20px;
+            padding: 55px 18px 18px 18px;
             box-sizing: border-box;
             overflow: hidden;
         }
@@ -242,8 +242,8 @@
         .app-grid {
             display: grid;
             grid-template-columns: repeat(4, 1fr);
-            gap: 20px 14px;
-            margin-top: 15px;
+            gap: 18px 12px;
+            margin-top: 10px;
         }
 
         .app-item {
@@ -256,15 +256,15 @@
         .app-icon {
             width: 60px;
             height: 60px;
-            background: rgba(255, 255, 255, 0.25);
-            backdrop-filter: blur(10px);
             border-radius: 14px;
             display: flex;
             justify-content: center;
             align-items: center;
-            font-size: 28px;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+            font-size: 26px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.25);
             transition: transform 0.15s;
+            position: relative;
+            overflow: hidden;
         }
         .app-icon:active {
             transform: scale(0.92);
@@ -274,18 +274,18 @@
             font-size: 11px;
             font-weight: 500;
             margin-top: 5px;
-            text-shadow: 0 1px 3px rgba(0,0,0,0.6);
+            text-shadow: 0 1px 3px rgba(0,0,0,0.7);
             letter-spacing: -0.2px;
         }
 
-        /* Dock di Bawah Layar Utama */
+        /* Dock iOS */
         .dock {
             margin-top: auto;
             background: rgba(255, 255, 255, 0.2);
             backdrop-filter: blur(25px);
             -webkit-backdrop-filter: blur(25px);
             border-radius: 30px;
-            padding: 12px 16px;
+            padding: 10px 14px;
             display: flex;
             justify-content: space-around;
             align-items: center;
@@ -293,8 +293,8 @@
             border: 1px solid rgba(255,255,255,0.15);
         }
         .dock .app-icon {
-            width: 56px;
-            height: 56px;
+            width: 54px;
+            height: 54px;
         }
 
         /* DALAM APLIKASI (IOS SHEET STYLE) */
@@ -305,11 +305,11 @@
             width: 100%;
             height: 100%;
             background: #1c1c1e;
-            padding: 60px 20px 30px 20px;
+            padding: 55px 20px 25px 20px;
             box-sizing: border-box;
             display: none;
             flex-direction: column;
-            z-index: 50;
+            z-index: 65;
             animation: slideUp 0.3s cubic-bezier(0.16, 1, 0.3, 1);
         }
 
@@ -325,20 +325,32 @@
             letter-spacing: -0.5px;
             border-bottom: 0.5px solid rgba(255,255,255,0.15);
             padding-bottom: 12px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
         }
 
         .back-ios-btn {
-            background: #ff453a;
-            color: white;
+            background: #3a3a3c;
+            color: #0a84ff;
             border: none;
-            padding: 10px 20px;
-            border-radius: 12px;
+            padding: 6px 14px;
+            border-radius: 8px;
             cursor: pointer;
-            margin-top: auto;
             font-weight: 600;
-            font-size: 15px;
-            align-self: center;
-            width: 100%;
+            font-size: 14px;
+        }
+
+        /* Styling Konten Aplikasi Khusus */
+        .setting-row {
+            background: #2c2c2e;
+            padding: 12px 16px;
+            border-radius: 10px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 10px;
+            font-size: 14px;
         }
     </style>
 </head>
@@ -361,19 +373,20 @@
         </div>
 
         <div>
+            <!-- Notifikasi Kalender Dinamis -->
             <div class="ios-notification">
                 <div class="notif-header">
-                    <span>💬 PESAN</span>
+                    <span>📅 Kalender • Hari ini</span>
                     <span>Baru saja</span>
                 </div>
-                <p class="notif-title">Pesan Rahasia</p>
-                <p class="notif-text">Ssst... Jangan lupa masukkan PIN kuncinya ya! ✨</p>
+                <p class="notif-title" id="countdownTitle">First Debut Anniversary</p>
+                <p class="notif-text" id="countdownText">Menghitung hari spesial...</p>
             </div>
             <div class="home-indicator"></div>
         </div>
     </div>
 
-    <!-- LAYAR MASUKKAN KODE SANDI (PASSCODE PIN) -->
+    <!-- LAYAR MASUKKAN KODE SANDI (PASSCODE) -->
     <div class="passcode-screen" id="passcodeScreen">
         <div class="status-bar" style="position: absolute; top: 12px; left: 24px; right: 24px; padding: 0;">
             <span class="clock">19:42</span>
@@ -402,7 +415,7 @@
             <button class="key-btn" onclick="pressKey('0')">0</button>
             <button class="key-btn" onclick="clearKey()" style="font-size: 16px; font-weight: 500;">⌫</button>
         </div>
-        <button onclick="closePasscode()" style="background:none; border:none; color:rgba(255,255,255,0.6); margin-top:30px; cursor:pointer; font-size:14px;">Batal</button>
+        <button onclick="closePasscode()" style="background:none; border:none; color:rgba(255,255,255,0.6); margin-top:25px; cursor:pointer; font-size:14px;">Batal</button>
     </div>
 
     <!-- LAYAR UTAMA (IOS HOME SCREEN) -->
@@ -413,29 +426,55 @@
         </div>
 
         <div class="app-grid" style="margin-top: 35px;">
+            <!-- KakaoTalk -->
             <div class="app-item" onclick="openApp('chat')">
-                <div class="app-icon">💬</div>
-                <div class="app-name">Pesan</div>
+                <div class="app-icon" style="background: #fee500; color: #3c1e1e; font-weight: bold; font-size: 20px;">💬</div>
+                <div class="app-name">KakaoTalk</div>
             </div>
+            <!-- Instagram -->
+            <div class="app-icon-wrap app-item" onclick="openApp('ig')">
+                <div class="app-icon" style="background: linear-gradient(45deg, #f09433, #e6683c, #dc2743, #cc2366, #bc1888); color: white;">📸</div>
+                <div class="app-name">Instagram</div>
+            </div>
+            <!-- Twitter / X -->
+            <div class="app-item" onclick="openApp('twitter')">
+                <div class="app-icon" style="background: #000000; color: white; font-weight: 900; font-size: 22px;">𝕏</div>
+                <div class="app-name">Twitter</div>
+            </div>
+            <!-- YouTube -->
+            <div class="app-item" onclick="openApp('youtube')">
+                <div class="app-icon" style="background: #ff0000; color: white; font-size: 24px;">▶</div>
+                <div class="app-name">YouTube</div>
+            </div>
+            <!-- Spotify -->
+            <div class="app-item" onclick="openApp('spotify')">
+                <div class="app-icon" style="background: #1db954; color: white; font-size: 24px;">🎧</div>
+                <div class="app-name">Spotify</div>
+            </div>
+            <!-- Pengaturan (Settings) -->
+            <div class="app-item" onclick="openApp('settings')">
+                <div class="app-icon" style="background: #8e8e93; color: white; font-size: 24px;">⚙️</div>
+                <div class="app-name">Pengaturan</div>
+            </div>
+            <!-- Cuaca (Weather) -->
+            <div class="app-item" onclick="openApp('weather')">
+                <div class="app-icon" style="background: linear-gradient(180deg, #5ac8fa, #007aff); color: white; font-size: 24px;">⛅</div>
+                <div class="app-name">Cuaca</div>
+            </div>
+            <!-- Kompas -->
+            <div class="app-item" onclick="openApp('compass')">
+                <div class="app-icon" style="background: #1c1c1e; color: #ff3b30; font-size: 26px;">🧭</div>
+                <div class="app-name">Kompas</div>
+            </div>
+            <!-- Galeri Foto -->
             <div class="app-item" onclick="openApp('gallery')">
-                <div class="app-icon">🖼️</div>
+                <div class="app-icon" style="background: linear-gradient(135deg, #ff9500, #ff2d55); color: white; font-size: 24px;">🖼️</div>
                 <div class="app-name">Foto</div>
             </div>
+            <!-- Catatan -->
             <div class="app-item" onclick="openApp('notes')">
-                <div class="app-icon">📝</div>
+                <div class="app-icon" style="background: #ffcc00; color: #333; font-size: 24px;">📝</div>
                 <div class="app-name">Catatan</div>
-            </div>
-            <div class="app-item" onclick="openApp('music')">
-                <div class="app-icon">🎵</div>
-                <div class="app-name">Musik</div>
-            </div>
-            <div class="app-item" onclick="openApp('camera')">
-                <div class="app-icon">📷</div>
-                <div class="app-name">Kamera</div>
-            </div>
-            <div class="app-item" onclick="openApp('settings')">
-                <div class="app-icon">⚙️</div>
-                <div class="app-name">Pengaturan</div>
             </div>
         </div>
 
@@ -448,36 +487,70 @@
                 <div class="app-icon" style="background: #007aff;">🌐</div>
             </div>
             <div class="app-item" onclick="openApp('chat')">
-                <div class="app-icon" style="background: #34c759;">💬</div>
+                <div class="app-icon" style="background: #fee500;">💬</div>
             </div>
-            <div class="app-item" onclick="openApp('music')">
-                <div class="app-icon" style="background: #ff3b30;">🎵</div>
+            <div class="app-item" onclick="openApp('spotify')">
+                <div class="app-icon" style="background: #1db954;">🎧</div>
             </div>
         </div>
     </div>
 
-    <!-- APLIKASI CHAT -->
+    <!-- ISI APLIKASI KAKAKOTALK / CHAT -->
     <div class="app-content" id="chatApp">
-        <div class="app-header">Pesan Rahasia</div>
-        <p style="background: #2c2c2e; padding: 14px; border-radius: 14px; font-size: 14px; line-height: 1.4; color: #f2f2f7;">
-            <b>Secret Admirer:</b> Wah, akhirnya berhasil masuk juga ya tanpa bocoran PIN! Hebat banget kodingannya! 😆✨
+        <div class="app-header"><span>KakaoTalk</span><button class="back-ios-btn" onclick="closeApp()">Kembali</button></div>
+        <p style="background: #2c2c2e; padding: 12px; border-radius: 12px; font-size: 13px; color: #f2f2f7;">
+            <b>Secret Admirer:</b> Halo! Jangan lupa hari ini hitung mundur anniversary-nya ya! ✨
         </p>
-        <button class="back-ios-btn" onclick="closeApp()">Tutup</button>
     </div>
 
-    <!-- APLIKASI GALERI -->
-    <div class="app-content" id="galleryApp">
-        <div class="app-header">Foto</div>
-        <div style="background: #2c2c2e; padding: 15px; border-radius: 14px; text-align: center; font-size: 13px; color: #f2f2f7;">
-            🖼️ Wallpaper Lock Screen aktif dengan sempurna[cite: 1]!
+    <!-- ISI APLIKASI PENGATURAN (SETTINGS) -->
+    <div class="app-content" id="settingsApp">
+        <div class="app-header"><span>Pengaturan</span><button class="back-ios-btn" onclick="closeApp()">Kembali</button></div>
+        <div class="setting-row"><span>Mode Pesawat</span> <span>Mati</span></div>
+        <div class="setting-row"><span>Wi-Fi</span> <span>Terhubung (5G)</span></div>
+        <div class="setting-row"><span>Bluetooth</span> <span>Aktif</span></div>
+        <div class="setting-row"><span>Umum (General)</span> <span>iOS 17.5</span></div>
+        <div class="setting-row"><span>Kapasitas Penyimpanan</span> <span>112 GB / 256 GB</span></div>
+    </div>
+
+    <!-- ISI APLIKASI CUACA -->
+    <div class="app-content" id="weatherApp" style="background: linear-gradient(180deg, #1c3b6b, #0d1b2a);">
+        <div class="app-header"><span>Cuaca</span><button class="back-ios-btn" onclick="closeApp()">Kembali</button></div>
+        <div style="text-align: center; margin-top: 30px;">
+            <h2>Seoul, Korea Selatan</h2>
+            <h1 style="font-size: 64px; margin: 10px 0;">18°C</h1>
+            <p>Cerah Berawan • Hembusan Angin Segar</p>
         </div>
-        <button class="back-ios-btn" onclick="closeApp()">Tutup</button>
+    </div>
+
+    <!-- ISI APLIKASI KOMPAS -->
+    <div class="app-content" id="compassApp">
+        <div class="app-header"><span>Kompas</span><button class="back-ios-btn" onclick="closeApp()">Kembali</button></div>
+        <div style="text-align: center; margin-top: 50px;">
+            <div style="font-size: 72px; margin-bottom: 20px;">🧭</div>
+            <h2 style="color: #ff3b30;">U 0° Utara</h2>
+            <p style="color: #8e8e93;">Lat: 37.5665° N, Lon: 126.9780° E</p>
+        </div>
+    </div>
+
+    <!-- ISI APLIKASI GALERI -->
+    <div class="app-content" id="galleryApp">
+        <div class="app-header"><span>Foto</span><button class="back-ios-btn" onclick="closeApp()">Kembali</button></div>
+        <div style="background: #2c2c2e; padding: 15px; border-radius: 14px; text-align: center; font-size: 13px; color: #f2f2f7;">
+            🖼️ Wallpaper aktif termuat dengan sempurna!
+        </div>
+    </div>
+
+    <!-- ISI APLIKASI LAINNYA (GENERIC) -->
+    <div class="app-content" id="genericApp">
+        <div class="app-header"><span id="appNameTitle">Aplikasi</span><button class="back-ios-btn" onclick="closeApp()">Kembali</button></div>
+        <p style="text-align: center; color: #8e8e93; margin-top: 50px;">Memuat konten aplikasi...</p>
     </div>
 </div>
 
 <script>
-    // 1. Jam & Tanggal Real-Time
-    function updateClock() {
+    // 1. Jam, Tanggal & Hitung Mundur H-Day Real-Time (Mengikuti Tanggal IRL)
+    function updateClockAndCountdown() {
         const now = new Date();
         const hours = String(now.getHours()).padStart(2, '0');
         const minutes = String(now.getMinutes()).padStart(2, '0');
@@ -487,9 +560,20 @@
 
         const options = { weekday: 'long', day: 'numeric', month: 'long' };
         document.getElementById('dateText').innerText = now.toLocaleDateString('id-ID', options);
+
+        // Target tanggal first debut anniversary (Contoh: 1 Juni 2027)
+        const targetDate = new Date('2027-06-01');
+        const diffTime = targetDate - now;
+        const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+
+        if (diffDays >= 0) {
+            document.getElementById('countdownText').innerText = `H-${diffDays} menuju hari spesial kita! ✨`;
+        } else {
+            document.getElementById('countdownText').innerText = `Sudah melewati anniversary! 🎉`;
+        }
     }
-    setInterval(updateClock, 1000);
-    updateClock();
+    setInterval(updateClockAndCountdown, 1000);
+    updateClockAndCountdown();
 
     // 2. Navigasi Lock Screen ke Passcode PIN
     function openPasscode() {
@@ -547,20 +631,29 @@
         }
     }
 
-    // 4. Navigasi Buka/Tutup Aplikasi
+    // 4. Navigasi Buka/Tutup Aplikasi Interaktif
     function openApp(appName) {
+        // Sembunyikan semua konten app dulu
+        document.querySelectorAll('.app-content').forEach(el => el.style.display = 'none');
+
         if(appName === 'chat') {
             document.getElementById('chatApp').style.display = 'flex';
+        } else if(appName === 'settings') {
+            document.getElementById('settingsApp').style.display = 'flex';
+        } else if(appName === 'weather') {
+            document.getElementById('weatherApp').style.display = 'flex';
+        } else if(appName === 'compass') {
+            document.getElementById('compassApp').style.display = 'flex';
         } else if(appName === 'gallery') {
             document.getElementById('galleryApp').style.display = 'flex';
         } else {
-            alert("Membuka aplikasi " + appName.toUpperCase() + "...");
+            document.getElementById('appNameTitle').innerText = appName.toUpperCase();
+            document.getElementById('genericApp').style.display = 'flex';
         }
     }
 
     function closeApp() {
-        document.getElementById('chatApp').style.display = 'none';
-        document.getElementById('galleryApp').style.display = 'none';
+        document.querySelectorAll('.app-content').forEach(el => el.style.display = 'none');
     }
 </script>
 
