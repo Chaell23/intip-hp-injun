@@ -1,0 +1,568 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>iPhone Simulator</title>
+    <style>
+        body {
+            background: #0f1015;
+            font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "SF Pro Text", "Helvetica Neue", Helvetica, Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            color: #fff;
+            overflow: hidden;
+        }
+
+        /* Kerangka HP ala iPhone */
+        .phone-frame {
+            width: 375px;
+            height: 750px;
+            background: #000;
+            border-radius: 50px;
+            border: 12px solid #2c2c2e;
+            box-shadow: 0 30px 60px rgba(0,0,0,0.8), inset 0 0 10px rgba(255,255,255,0.1);
+            position: relative;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* Dynamic Island */
+        .dynamic-island {
+            position: absolute;
+            top: 12px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 110px;
+            height: 30px;
+            background: #000;
+            border-radius: 20px;
+            z-index: 50;
+            display: flex;
+            align-items: center;
+            justify-content: flex-end;
+            padding-right: 8px;
+            box-sizing: border-box;
+        }
+        .island-cam {
+            width: 11px;
+            height: 11px;
+            background: #1a1a1a;
+            border-radius: 50%;
+            box-shadow: inset 0 0 2px rgba(255,255,255,0.2);
+        }
+
+        /* Status Bar iOS */
+        .status-bar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 14px;
+            padding: 16px 28px 0 28px;
+            font-weight: 600;
+            z-index: 45;
+            letter-spacing: -0.3px;
+        }
+
+        /* LAYAR KUNCI (LOCK SCREEN) */
+        .lock-screen {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(rgba(0,0,0,0.2), rgba(0,0,0,0.6)), url('wallpaper.jpg');
+            background-size: cover;
+            background-position: center;
+            z-index: 40;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            padding: 60px 24px 35px 24px;
+            box-sizing: border-box;
+            transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.3s ease;
+            cursor: pointer;
+        }
+
+        .lock-clock-container {
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        .lock-time {
+            font-size: 76px;
+            font-weight: 300;
+            margin: 0;
+            letter-spacing: -2px;
+            text-shadow: 0 4px 15px rgba(0,0,0,0.5);
+        }
+
+        .lock-date {
+            font-size: 17px;
+            font-weight: 500;
+            color: rgba(255,255,255,0.9);
+            margin-top: 4px;
+            text-shadow: 0 2px 8px rgba(0,0,0,0.5);
+        }
+
+        /* Notifikasi ala iOS */
+        .ios-notification {
+            background: rgba(45, 45, 48, 0.65);
+            backdrop-filter: blur(25px);
+            -webkit-backdrop-filter: blur(25px);
+            border-radius: 20px;
+            padding: 14px 18px;
+            box-shadow: 0 8px 32px rgba(0,0,0,0.3);
+            border: 1px solid rgba(255,255,255,0.1);
+            margin-top: auto;
+            margin-bottom: 20px;
+        }
+        .notif-header {
+            display: flex;
+            justify-content: space-between;
+            font-size: 12px;
+            color: rgba(255,255,255,0.7);
+            margin-bottom: 4px;
+        }
+        .notif-title {
+            font-weight: 600;
+            font-size: 14px;
+            margin: 0 0 2px 0;
+        }
+        .notif-text {
+            margin: 0;
+            font-size: 13px;
+            color: #e5e5ea;
+        }
+
+        .home-indicator {
+            width: 130px;
+            height: 5px;
+            background: rgba(255,255,255,0.7);
+            border-radius: 10px;
+            align-self: center;
+            margin-top: 10px;
+        }
+
+        /* LAYAR MASUKKAN KODE SANDI (PASSCODE) */
+        .passcode-screen {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(20, 20, 25, 0.85);
+            backdrop-filter: blur(40px);
+            -webkit-backdrop-filter: blur(40px);
+            z-index: 45;
+            display: none;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+            box-sizing: border-box;
+        }
+
+        .passcode-title {
+            font-size: 18px;
+            font-weight: 400;
+            margin-bottom: 25px;
+            letter-spacing: -0.2px;
+        }
+
+        .passcode-dots {
+            display: flex;
+            gap: 18px;
+            margin-bottom: 50px;
+        }
+
+        .p-dot {
+            width: 13px;
+            height: 13px;
+            border: 1.5px solid rgba(255,255,255,0.8);
+            border-radius: 50%;
+            background: transparent;
+            transition: background 0.2s, border-color 0.2s;
+        }
+        .p-dot.filled {
+            background: #fff;
+            border-color: #fff;
+        }
+
+        .keypad {
+            display: grid;
+            grid-template-columns: repeat(3, 75px);
+            gap: 18px;
+        }
+
+        .key-btn {
+            width: 75px;
+            height: 75px;
+            background: rgba(255, 255, 255, 0.08);
+            border: none;
+            border-radius: 50%;
+            color: white;
+            font-size: 28px;
+            font-weight: 300;
+            cursor: pointer;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            transition: background 0.15s;
+        }
+        .key-btn span {
+            font-size: 9px;
+            font-weight: 600;
+            letter-spacing: 1.5px;
+            margin-top: -2px;
+            color: rgba(255,255,255,0.6);
+        }
+        .key-btn:active {
+            background: rgba(255, 255, 255, 0.25);
+        }
+
+        /* LAYAR UTAMA (IOS HOME SCREEN) */
+        .home-screen {
+            flex: 1;
+            background: linear-gradient(135deg, #1e3c72, #2a5298, #6ee7b7);
+            background-size: cover;
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            padding: 55px 20px 20px 20px;
+            box-sizing: border-box;
+            overflow: hidden;
+        }
+
+        .app-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 20px 14px;
+            margin-top: 15px;
+        }
+
+        .app-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            cursor: pointer;
+        }
+
+        .app-icon {
+            width: 60px;
+            height: 60px;
+            background: rgba(255, 255, 255, 0.25);
+            backdrop-filter: blur(10px);
+            border-radius: 14px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 28px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+            transition: transform 0.15s;
+        }
+        .app-icon:active {
+            transform: scale(0.92);
+        }
+
+        .app-name {
+            font-size: 11px;
+            font-weight: 500;
+            margin-top: 5px;
+            text-shadow: 0 1px 3px rgba(0,0,0,0.6);
+            letter-spacing: -0.2px;
+        }
+
+        /* Dock di Bawah Layar Utama */
+        .dock {
+            margin-top: auto;
+            background: rgba(255, 255, 255, 0.2);
+            backdrop-filter: blur(25px);
+            -webkit-backdrop-filter: blur(25px);
+            border-radius: 30px;
+            padding: 12px 16px;
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+            border: 1px solid rgba(255,255,255,0.15);
+        }
+        .dock .app-icon {
+            width: 56px;
+            height: 56px;
+        }
+
+        /* DALAM APLIKASI (IOS SHEET STYLE) */
+        .app-content {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: #1c1c1e;
+            padding: 60px 20px 30px 20px;
+            box-sizing: border-box;
+            display: none;
+            flex-direction: column;
+            z-index: 50;
+            animation: slideUp 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        @keyframes slideUp {
+            from { transform: translateY(100%); }
+            to { transform: translateY(0); }
+        }
+
+        .app-header {
+            font-size: 22px;
+            font-weight: 700;
+            margin-bottom: 20px;
+            letter-spacing: -0.5px;
+            border-bottom: 0.5px solid rgba(255,255,255,0.15);
+            padding-bottom: 12px;
+        }
+
+        .back-ios-btn {
+            background: #ff453a;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 12px;
+            cursor: pointer;
+            margin-top: auto;
+            font-weight: 600;
+            font-size: 15px;
+            align-self: center;
+            width: 100%;
+        }
+    </style>
+</head>
+<body>
+
+<div class="phone-frame">
+    <!-- Dynamic Island & Status Bar -->
+    <div class="dynamic-island"><div class="island-cam"></div></div>
+    
+    <!-- LAYAR KUNCI (LOCK SCREEN) -->
+    <div class="lock-screen" id="lockScreen" onclick="openPasscode()">
+        <div class="status-bar" style="padding: 0;">
+            <span class="clock">19:42</span>
+            <span>5G 🔋</span>
+        </div>
+        
+        <div class="lock-clock-container">
+            <h1 class="lock-time clock">19:42</h1>
+            <div class="lock-date" id="dateText">Jumat, 23 Oktober</div>
+        </div>
+
+        <div>
+            <div class="ios-notification">
+                <div class="notif-header">
+                    <span>💬 PESAN</span>
+                    <span>Baru saja</span>
+                </div>
+                <p class="notif-title">Pesan Rahasia</p>
+                <p class="notif-text">Ssst... Jangan lupa masukkan PIN kuncinya ya! ✨</p>
+            </div>
+            <div class="home-indicator"></div>
+        </div>
+    </div>
+
+    <!-- LAYAR MASUKKAN KODE SANDI (PASSCODE PIN) -->
+    <div class="passcode-screen" id="passcodeScreen">
+        <div class="status-bar" style="position: absolute; top: 12px; left: 24px; right: 24px; padding: 0;">
+            <span class="clock">19:42</span>
+            <span>5G 🔋</span>
+        </div>
+
+        <div class="passcode-title">Masukkan Kode Sandi</div>
+        <div class="passcode-dots">
+            <div class="p-dot" id="dot1"></div>
+            <div class="p-dot" id="dot2"></div>
+            <div class="p-dot" id="dot3"></div>
+            <div class="p-dot" id="dot4"></div>
+        </div>
+
+        <div class="keypad">
+            <button class="key-btn" onclick="pressKey('1')">1</button>
+            <button class="key-btn" onclick="pressKey('2')">2<span>ABC</span></button>
+            <button class="key-btn" onclick="pressKey('3')">3<span>DEF</span></button>
+            <button class="key-btn" onclick="pressKey('4')">4<span>GHI</span></button>
+            <button class="key-btn" onclick="pressKey('5')">5<span>JKL</span></button>
+            <button class="key-btn" onclick="pressKey('6')">6<span>MNO</span></button>
+            <button class="key-btn" onclick="pressKey('7')">7<span>PQRS</span></button>
+            <button class="key-btn" onclick="pressKey('8')">8<span>TUV</span></button>
+            <button class="key-btn" onclick="pressKey('9')">9<span>WXYZ</span></button>
+            <button class="key-btn" style="visibility: hidden;"></button>
+            <button class="key-btn" onclick="pressKey('0')">0</button>
+            <button class="key-btn" onclick="clearKey()" style="font-size: 16px; font-weight: 500;">⌫</button>
+        </div>
+        <button onclick="closePasscode()" style="background:none; border:none; color:rgba(255,255,255,0.6); margin-top:30px; cursor:pointer; font-size:14px;">Batal</button>
+    </div>
+
+    <!-- LAYAR UTAMA (IOS HOME SCREEN) -->
+    <div class="home-screen" id="homeScreen">
+        <div class="status-bar" style="position: absolute; top: 12px; left: 24px; right: 24px; padding: 0;">
+            <span class="clock">19:42</span>
+            <span>5G 🔋</span>
+        </div>
+
+        <div class="app-grid" style="margin-top: 35px;">
+            <div class="app-item" onclick="openApp('chat')">
+                <div class="app-icon">💬</div>
+                <div class="app-name">Pesan</div>
+            </div>
+            <div class="app-item" onclick="openApp('gallery')">
+                <div class="app-icon">🖼️</div>
+                <div class="app-name">Foto</div>
+            </div>
+            <div class="app-item" onclick="openApp('notes')">
+                <div class="app-icon">📝</div>
+                <div class="app-name">Catatan</div>
+            </div>
+            <div class="app-item" onclick="openApp('music')">
+                <div class="app-icon">🎵</div>
+                <div class="app-name">Musik</div>
+            </div>
+            <div class="app-item" onclick="openApp('camera')">
+                <div class="app-icon">📷</div>
+                <div class="app-name">Kamera</div>
+            </div>
+            <div class="app-item" onclick="openApp('settings')">
+                <div class="app-icon">⚙️</div>
+                <div class="app-name">Pengaturan</div>
+            </div>
+        </div>
+
+        <!-- Dock iOS -->
+        <div class="dock">
+            <div class="app-item" onclick="openApp('phone')">
+                <div class="app-icon" style="background: #34c759;">📞</div>
+            </div>
+            <div class="app-item" onclick="openApp('safari')">
+                <div class="app-icon" style="background: #007aff;">🌐</div>
+            </div>
+            <div class="app-item" onclick="openApp('chat')">
+                <div class="app-icon" style="background: #34c759;">💬</div>
+            </div>
+            <div class="app-item" onclick="openApp('music')">
+                <div class="app-icon" style="background: #ff3b30;">🎵</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- APLIKASI CHAT -->
+    <div class="app-content" id="chatApp">
+        <div class="app-header">Pesan Rahasia</div>
+        <p style="background: #2c2c2e; padding: 14px; border-radius: 14px; font-size: 14px; line-height: 1.4; color: #f2f2f7;">
+            <b>Secret Admirer:</b> Wah, akhirnya berhasil masuk juga ya tanpa bocoran PIN! Hebat banget kodingannya! 😆✨
+        </p>
+        <button class="back-ios-btn" onclick="closeApp()">Tutup</button>
+    </div>
+
+    <!-- APLIKASI GALERI -->
+    <div class="app-content" id="galleryApp">
+        <div class="app-header">Foto</div>
+        <div style="background: #2c2c2e; padding: 15px; border-radius: 14px; text-align: center; font-size: 13px; color: #f2f2f7;">
+            🖼️ Wallpaper Lock Screen aktif dengan sempurna[cite: 1]!
+        </div>
+        <button class="back-ios-btn" onclick="closeApp()">Tutup</button>
+    </div>
+</div>
+
+<script>
+    // 1. Jam & Tanggal Real-Time
+    function updateClock() {
+        const now = new Date();
+        const hours = String(now.getHours()).padStart(2, '0');
+        const minutes = String(now.getMinutes()).padStart(2, '0');
+        const timeString = `${hours}:${minutes}`;
+
+        document.querySelectorAll('.clock').forEach(el => el.innerText = timeString);
+
+        const options = { weekday: 'long', day: 'numeric', month: 'long' };
+        document.getElementById('dateText').innerText = now.toLocaleDateString('id-ID', options);
+    }
+    setInterval(updateClock, 1000);
+    updateClock();
+
+    // 2. Navigasi Lock Screen ke Passcode PIN
+    function openPasscode() {
+        document.getElementById('passcodeScreen').style.display = 'flex';
+    }
+
+    function closePasscode() {
+        document.getElementById('passcodeScreen').style.display = 'none';
+        enteredPin = "";
+        updateDots();
+    }
+
+    // 3. Logika PIN (0106) Tanpa Hint
+    let enteredPin = "";
+    const correctPin = "0106";
+
+    function pressKey(num) {
+        if (enteredPin.length < 4) {
+            enteredPin += num;
+            updateDots();
+            
+            if (enteredPin.length === 4) {
+                setTimeout(checkPin, 200);
+            }
+        }
+    }
+
+    function updateDots() {
+        for (let i = 1; i <= 4; i++) {
+            const dot = document.getElementById(`dot${i}`);
+            if (i <= enteredPin.length) {
+                dot.classList.add('filled');
+            } else {
+                dot.classList.remove('filled');
+            }
+        }
+    }
+
+    function clearKey() {
+        enteredPin = "";
+        updateDots();
+    }
+
+    function checkPin() {
+        if (enteredPin === correctPin) {
+            document.getElementById('passcodeScreen').style.display = 'none';
+            const lockScreen = document.getElementById('lockScreen');
+            lockScreen.style.transform = 'translateY(-100%)';
+            lockScreen.style.opacity = '0';
+            setTimeout(() => { lockScreen.style.display = 'none'; }, 400);
+        } else {
+            alert("Kode sandi salah.");
+            enteredPin = "";
+            updateDots();
+        }
+    }
+
+    // 4. Navigasi Buka/Tutup Aplikasi
+    function openApp(appName) {
+        if(appName === 'chat') {
+            document.getElementById('chatApp').style.display = 'flex';
+        } else if(appName === 'gallery') {
+            document.getElementById('galleryApp').style.display = 'flex';
+        } else {
+            alert("Membuka aplikasi " + appName.toUpperCase() + "...");
+        }
+    }
+
+    function closeApp() {
+        document.getElementById('chatApp').style.display = 'none';
+        document.getElementById('galleryApp').style.display = 'none';
+    }
+</script>
+
+</body>
+</html>
