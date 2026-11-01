@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>iOS 17 Simulator Pro Ultimate</title>
+    <title>iOS 17 Simulator Pro</title>
     <style>
         body {
             background: #0b0c10;
@@ -342,7 +342,7 @@
             height: 52px;
         }
 
-        /* DALAM APLIKASI UMUM */
+        /* DALAM APLIKASI (IOS SHEET STYLE) */
         .app-content {
             position: absolute;
             top: 0;
@@ -350,7 +350,7 @@
             width: 100%;
             height: 100%;
             background: #1c1c1e;
-            padding: 50px 16px 20px 16px;
+            padding: 45px 16px 20px 16px;
             box-sizing: border-box;
             display: none;
             flex-direction: column;
@@ -366,9 +366,9 @@
         }
 
         .app-header {
-            font-size: 20px;
+            font-size: 18px;
             font-weight: 700;
-            margin-bottom: 12px;
+            margin-bottom: 15px;
             letter-spacing: -0.5px;
             border-bottom: 0.5px solid rgba(255,255,255,0.15);
             padding-bottom: 10px;
@@ -433,13 +433,14 @@
         .kakaotalk-header {
             background: #fee500;
             color: #3c1e1e;
-            padding: 10px 16px;
+            padding: 12px 16px;
             font-weight: bold;
-            font-size: 18px;
+            font-size: 17px;
             display: flex;
             justify-content: space-between;
             align-items: center;
-            margin: -50px -16px 15px -16px;
+            border-radius: 10px;
+            margin-bottom: 12px;
         }
         .chat-room-item {
             display: flex;
@@ -450,10 +451,10 @@
             cursor: pointer;
         }
         .chat-room-avatar {
-            width: 48px;
-            height: 48px;
-            background: #444;
-            border-radius: 18px;
+            width: 46px;
+            height: 46px;
+            background: #333;
+            border-radius: 16px;
             display: flex;
             align-items: center;
             justify-content: center;
@@ -465,11 +466,12 @@
         }
         .chat-room-name {
             font-weight: 600;
-            font-size: 14px;
+            font-size: 13px;
             color: #fff;
+            line-height: 1.3;
         }
         .chat-room-preview {
-            font-size: 12px;
+            font-size: 11px;
             color: #8e8e93;
             margin-top: 3px;
         }
@@ -479,29 +481,29 @@
             display: flex;
             align-items: center;
             justify-content: space-between;
-            padding: 10px 0;
+            padding: 5px 0;
         }
         .ig-stats {
             display: flex;
-            gap: 20px;
+            gap: 18px;
             text-align: center;
-            font-size: 13px;
+            font-size: 12px;
         }
         .ig-stats b {
             display: block;
-            font-size: 15px;
+            font-size: 14px;
         }
         .ig-tabs {
             display: flex;
             justify-content: space-around;
             border-top: 0.5px solid #333;
             border-bottom: 0.5px solid #333;
-            margin-top: 10px;
+            margin-top: 12px;
         }
         .ig-tab {
-            padding: 10px;
+            padding: 8px;
             cursor: pointer;
-            font-size: 16px;
+            font-size: 14px;
             flex: 1;
             text-align: center;
         }
@@ -512,23 +514,24 @@
         /* SPOTIFY STYLING */
         .spotify-card {
             background: linear-gradient(135deg, #282828, #121212);
-            border-radius: 16px;
-            padding: 20px;
+            border-radius: 14px;
+            padding: 16px;
             text-align: center;
-            margin-top: 20px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+            margin-top: 15px;
+            box-shadow: 0 8px 24px rgba(0,0,0,0.4);
         }
 
         /* CAMERA STYLING */
         .camera-viewfinder {
             flex: 1;
-            background: #222;
-            border-radius: 16px;
+            background: #111;
+            border-radius: 14px;
             position: relative;
             overflow: hidden;
             display: flex;
             align-items: center;
             justify-content: center;
+            margin-bottom: 12px;
         }
         .camera-viewfinder video {
             width: 100%;
@@ -706,7 +709,7 @@
                         </div>
                         <div class="app-name">Kompas</div>
                     </div>
-                    <!-- Galeri / Foto -->
+                    <!-- Galeri -->
                     <div class="app-item" onclick="openApp('gallery')">
                         <div class="app-icon" style="background: linear-gradient(135deg, #ff9500, #ff2d55);">
                             <svg viewBox="0 0 24 24" fill="#fff" style="width:32px;height:32px;"><path d="M21 19V5c0-1.1-.9-2-2-2H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2zM8.5 13.5l2.5 3.01L14.5 12l4.5 6H5l3.5-4.5z"/></svg>
@@ -740,7 +743,7 @@
         </div>
     </div>
 
-    <!-- 1. APLIKASI KAKAKAOTALK (ROOMS) -->
+    <!-- 1. APLIKASI KAKAKAOTALK -->
     <div class="app-content" id="chatApp" style="background:#1e1e1e;">
         <div class="kakaotalk-header">
             <span>KakaoTalk Chat</span>
@@ -820,7 +823,7 @@
             <button class="back-ios-btn" onclick="closeApp()">Tutup</button>
         </div>
         <div class="ig-profile-header">
-            <div style="width:70px;height:70px;background:#333;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:28px;">👤</div>
+            <div style="width:65px;height:65px;background:#333;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:26px;">👤</div>
             <div class="ig-stats">
                 <div><b>3</b>Postingan</div>
                 <div><b>10</b>Pengikut</div>
@@ -843,7 +846,7 @@
         <div id="igReels" style="display:none; flex-direction:column; gap:10px; margin-top:10px; text-align:center;">
             <div style="background:#222; height:220px; border-radius:12px; display:flex; align-items:center; justify-content:center; position:relative;">
                 <video src="https://assets.mixkit.co/videos/preview/mixkit-girl-in-neon-lights-41522-large.mp4" autoplay loop muted style="width:100%; height:100%; object-fit:cover; border-radius:12px;"></video>
-                <div style="position:absolute; bottom:10px; left:10px; font-size:12px; font-weight:bold; text-shadow:0 1px 3px #000;">@unknown_sst • Reels Moment ✨</div>
+                <div style="position:absolute; bottom:10px; left:10px; font-size:11px; font-weight:bold; text-shadow:0 1px 3px #000;">@unknown_sst • Reels Moment ✨</div>
             </div>
         </div>
     </div>
@@ -851,17 +854,17 @@
     <!-- 3. APLIKASI SPOTIFY (Renjun Solo Track) -->
     <div class="app-content" id="spotifyApp" style="background:#121212;">
         <div class="app-header"><span>Spotify</span><button class="back-ios-btn" onclick="closeApp()">Tutup</button></div>
-        <div style="font-size: 13px; color: #1db954; font-weight: bold; margin-bottom: 10px;">🎧 Rekomendasi Khusus Untukmu</div>
+        <div style="font-size: 13px; color: #1db954; font-weight: bold; margin-bottom: 5px;">🎧 Rekomendasi Khusus Untukmu</div>
         
         <div class="spotify-card">
-            <div style="font-size: 45px; margin-bottom: 10px;">🦊</div>
-            <h3 style="margin:5px 0;">Renjun Solo Track</h3>
-            <p style="color: #b3b3b3; font-size: 13px; margin: 0 0 15px 0;">NCT / Soloist</p>
-            <a href="https://open.spotify.com/intl-id/track/02W2P4Zd9a7LddUMlIH0Bp?si=115a9a36cfcd4c36" target="_blank" style="background: #1db954; color: #fff; padding: 10px 20px; border-radius: 20px; text-decoration: none; font-size: 13px; font-weight: bold; display:inline-block;">Buka di Spotify App</a>
+            <div style="font-size: 40px; margin-bottom: 8px;">🦊</div>
+            <h3 style="margin:5px 0; font-size: 16px;">Renjun Solo Track</h3>
+            <p style="color: #b3b3b3; font-size: 12px; margin: 0 0 12px 0;">NCT / Soloist</p>
+            <a href="https://open.spotify.com/intl-id/track/02W2P4Zd9a7LddUMlIH0Bp?si=115a9a36cfcd4c36" target="_blank" style="background: #1db954; color: #fff; padding: 8px 18px; border-radius: 20px; text-decoration: none; font-size: 12px; font-weight: bold; display:inline-block;">Buka di Spotify App</a>
         </div>
-        <div class="spotify-card" style="margin-top: 15px;">
-            <p style="color: #b3b3b3; font-size: 12px; margin:0;">Alternative Link:</p>
-            <a href="https://open.spotify.com/intl-id/track/02W2P4Zd9a7LddUMlIH0Bp?si=fdc228b4c2024de2" target="_blank" style="color: #1db954; font-size: 12px; word-break: break-all;">Track Session 2 (FD228)</a>
+        <div class="spotify-card" style="margin-top: 12px;">
+            <p style="color: #b3b3b3; font-size: 11px; margin:0 0 5px 0;">Alternative Link:</p>
+            <a href="https://open.spotify.com/intl-id/track/02W2P4Zd9a7LddUMlIH0Bp?si=fdc228b4c2024de2" target="_blank" style="color: #1db954; font-size: 11px; word-break: break-all;">Track Session 2 (FD228)</a>
         </div>
     </div>
 
@@ -869,37 +872,36 @@
     <div class="app-content" id="youtubeApp" style="background:#0f0f0f;">
         <div class="app-header"><span>YouTube</span><button class="back-ios-btn" onclick="closeApp()">Tutup</button></div>
         <div style="font-size: 13px; color: #aaa; margin-bottom: 10px;">✈️ Bandara & Updates</div>
-        <div style="display:flex; flex-direction:column; gap:12px;">
+        <div style="display:flex; flex-direction:column; gap:10px;">
             <a href="https://youtu.be/FFcgGFpO1n0?si=zSjNYrr7gR9EX_Vz" target="_blank" style="text-decoration:none; color:#fff; background:#212121; border-radius:10px; overflow:hidden; display:block;">
-                <div style="height:110px; background:#333; display:flex; align-items:center; justify-content:center; font-size:24px;">▶️ Airport Fancam 1</div>
-                <div style="padding:10px; font-size:13px; font-weight:600;">NCT Airport Departure / Arrival (FFcg...)</div>
+                <div style="height:90px; background:#333; display:flex; align-items:center; justify-content:center; font-size:18px;">▶️ Airport Fancam 1</div>
+                <div style="padding:8px; font-size:12px; font-weight:600;">NCT Airport Departure / Arrival (FFcg...)</div>
             </a>
             <a href="https://youtu.be/4QskmxtudzQ?si=ZAVgO1nlpXV1i19o" target="_blank" style="text-decoration:none; color:#fff; background:#212121; border-radius:10px; overflow:hidden; display:block;">
-                <div style="height:110px; background:#333; display:flex; align-items:center; justify-content:center; font-size:24px;">▶️ Airport Fancam 2</div>
-                <div style="padding:10px; font-size:13px; font-weight:600;">Renjun / Member Focus Airport (4Qsk...)</div>
+                <div style="height:90px; background:#333; display:flex; align-items:center; justify-content:center; font-size:18px;">▶️ Airport Fancam 2</div>
+                <div style="padding:8px; font-size:12px; font-weight:600;">Renjun / Member Focus Airport (4Qsk...)</div>
             </a>
             <a href="https://youtu.be/BVOSll9ou7U?si=LdVFfg2Ys9roQpzb" target="_blank" style="text-decoration:none; color:#fff; background:#212121; border-radius:10px; overflow:hidden; display:block;">
-                <div style="height:110px; background:#333; display:flex; align-items:center; justify-content:center; font-size:24px;">▶️ Airport Fancam 3</div>
-                <div style="padding:10px; font-size:13px; font-weight:600;">NCT Dream Flight Moments (BVOS...)</div>
+                <div style="height:90px; background:#333; display:flex; align-items:center; justify-content:center; font-size:18px;">▶️ Airport Fancam 3</div>
+                <div style="padding:8px; font-size:12px; font-weight:600;">NCT Dream Flight Moments (BVOS...)</div>
             </a>
             <a href="https://youtu.be/LFbU0A1-IH8?si=6l2lczXvFN0MkYtF" target="_blank" style="text-decoration:none; color:#fff; background:#212121; border-radius:10px; overflow:hidden; display:block;">
-                <div style="height:110px; background:#333; display:flex; align-items:center; justify-content:center; font-size:24px;">▶️ Airport Fancam 4</div>
-                <div style="padding:10px; font-size:13px; font-weight:600;">Special Departure Update (LFbU...)</div>
+                <div style="height:90px; background:#333; display:flex; align-items:center; justify-content:center; font-size:18px;">▶️ Airport Fancam 4</div>
+                <div style="padding:8px; font-size:12px; font-weight:600;">Special Departure Update (LFbU...)</div>
             </a>
         </div>
     </div>
 
-    <!-- 5. APLIKASI KAMERA (Live Peeping / Viewfinder Video) -->
+    <!-- 5. APLIKASI KAMERA -->
     <div class="app-content" id="cameraApp" style="background:#000;">
         <div class="app-header"><span>Kamera</span><button class="back-ios-btn" onclick="closeApp()">Tutup</button></div>
         <div class="camera-viewfinder">
-            <!-- Video simulasi intip / kamera HP -->
             <video id="cameraFeed" src="https://assets.mixkit.co/videos/preview/mixkit-hands-holding-a-smartphone-with-a-green-screen-42289-large.mp4" autoplay loop muted playsinline></video>
-            <div style="position:absolute; bottom:15px; font-size:11px; background:rgba(0,0,0,0.6); padding:4px 10px; border-radius:20px;" id="camStatus">Kamera Belakang 🟢</div>
+            <div style="position:absolute; bottom:12px; font-size:10px; background:rgba(0,0,0,0.6); padding:3px 8px; border-radius:20px;" id="camStatus">Kamera Belakang 🟢</div>
         </div>
-        <div style="display:flex; justify-content:space-around; align-items:center; padding-top:15px;">
+        <div style="display:flex; justify-content:space-around; align-items:center; padding-top:10px;">
             <div style="font-size:12px; color:#aaa;">Foto</div>
-            <div style="width:55px; height:55px; border:4px solid #fff; border-radius:50%; display:flex; align-items:center; justify-content:center; cursor:pointer;" onclick="alert('Cekrek! Foto tersimpan di Galeri.')"><div style="width:43px; height:43px; background:#fff; border-radius:50%;"></div></div>
+            <div style="width:50px; height:50px; border:4px solid #fff; border-radius:50%; display:flex; align-items:center; justify-content:center; cursor:pointer;" onclick="alert('Cekrek! Foto tersimpan di Galeri.')"><div style="width:38px; height:38px; background:#fff; border-radius:50%;"></div></div>
             <div style="font-size:12px; color:#ffcc00; cursor:pointer;" onclick="toggleCamera()">🔄 Putar</div>
         </div>
     </div>
@@ -907,17 +909,17 @@
     <!-- APLIKASI LAINNYA -->
     <div class="app-content" id="oliveyoungApp">
         <div class="app-header"><span>Olive Young</span><button class="back-ios-btn" onclick="closeApp()">Tutup</button></div>
-        <div style="background: #00b074; padding: 12px; border-radius: 12px; text-align: center; margin-bottom: 15px; font-weight: bold;">🌿 K-Beauty Special Sale</div>
-        <div style="background: #2c2c2e; padding: 12px; border-radius: 10px; margin-bottom: 10px; font-size: 13px;"><b>Judydoll Tinted Sunscreen</b><br><span style="color: #00b074;">₩24,000</span></div>
-        <div style="background: #2c2c2e; padding: 12px; border-radius: 10px; font-size: 13px;"><b>Rom&nd Juicy Lasting Tint</b><br><span style="color: #00b074;">₩13,000</span></div>
+        <div style="background: #00b074; padding: 12px; border-radius: 12px; text-align: center; margin-bottom: 12px; font-weight: bold; font-size: 14px;">🌿 K-Beauty Special Sale</div>
+        <div style="background: #2c2c2e; padding: 10px; border-radius: 10px; margin-bottom: 8px; font-size: 13px;"><b>Judydoll Tinted Sunscreen</b><br><span style="color: #00b074;">₩24,000</span></div>
+        <div style="background: #2c2c2e; padding: 10px; border-radius: 10px; font-size: 13px;"><b>Rom&nd Juicy Lasting Tint</b><br><span style="color: #00b074;">₩13,000</span></div>
     </div>
 
     <div class="app-content" id="mapsApp">
         <div class="app-header"><span>Google Maps</span><button class="back-ios-btn" onclick="closeApp()">Tutup</button></div>
         <div style="background: #2c2c2e; padding: 15px; border-radius: 12px; text-align: center;">
-            <div style="font-size: 40px; margin-bottom: 10px;">📍</div>
+            <div style="font-size: 36px; margin-bottom: 8px;">📍</div>
             <h3>Depok / Jakarta, Indonesia</h3>
-            <p style="color: #8e8e93; font-size: 13px;">GPS Aktif • Lalu lintas lancar</p>
+            <p style="color: #8e8e93; font-size: 12px;">GPS Aktif • Lalu lintas lancar</p>
         </div>
     </div>
 
@@ -932,19 +934,19 @@
 
     <div class="app-content" id="weatherApp" style="background: linear-gradient(180deg, #1c3b6b, #0d1b2a);">
         <div class="app-header"><span>Cuaca</span><button class="back-ios-btn" onclick="closeApp()">Tutup</button></div>
-        <div style="text-align: center; margin-top: 30px;">
+        <div style="text-align: center; margin-top: 20px;">
             <h2>Seoul, Korea Selatan</h2>
-            <h1 style="font-size: 64px; margin: 10px 0;">18°C</h1>
-            <p>Cerah Berawan • Nyaman</p>
+            <h1 style="font-size: 56px; margin: 8px 0;">18°C</h1>
+            <p style="font-size: 13px;">Cerah Berawan • Nyaman</p>
         </div>
     </div>
 
     <div class="app-content" id="compassApp">
         <div class="app-header"><span>Kompas</span><button class="back-ios-btn" onclick="closeApp()">Tutup</button></div>
-        <div style="text-align: center; margin-top: 50px;">
-            <div style="font-size: 72px; margin-bottom: 20px;">🧭</div>
-            <h2 style="color: #ff3b30;">U 0° Utara</h2>
-            <p style="color: #8e8e93;">Lat: 37.5665° N, Lon: 126.9780° E</p>
+        <div style="text-align: center; margin-top: 40px;">
+            <div style="font-size: 64px; margin-bottom: 15px;">🧭</div>
+            <h2 style="color: #ff3b30; font-size: 20px;">U 0° Utara</h2>
+            <p style="color: #8e8e93; font-size: 12px;">Lat: 37.5665° N, Lon: 126.9780° E</p>
         </div>
     </div>
 
@@ -954,7 +956,7 @@
             <span>Foto</span>
             <button class="back-ios-btn" onclick="closeApp()">Tutup</button>
         </div>
-        <div style="font-size: 13px; color: #8e8e93; margin-bottom: 10px; font-weight: 500;">Semua Foto</div>
+        <div style="font-size: 12px; color: #8e8e93; margin-bottom: 8px; font-weight: 500;">Semua Foto</div>
         <div class="gallery-grid">
             <div class="gallery-thumb" style="background-image: url('foto1.jpg');" onclick="openPhoto('foto1.jpg')"></div>
             <div class="gallery-thumb" style="background-image: url('foto2.jpg');" onclick="openPhoto('foto2.jpg')"></div>
@@ -972,7 +974,7 @@
     <div id="photoViewer">
         <div class="viewer-header" style="padding:10px 20px; display:flex; justify-content:space-between; align-items:center;">
             <button class="back-ios-btn" onclick="closePhoto()">‹ Album</button>
-            <span style="font-size: 14px; font-weight: 500; color: #aaa;">Semua Foto</span>
+            <span style="font-size: 13px; font-weight: 500; color: #aaa;">Semua Foto</span>
             <div style="width: 50px;"></div>
         </div>
         <div class="viewer-img-container">
