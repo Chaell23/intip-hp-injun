@@ -1,41 +1,243 @@
-// ===== 4. APLIKASI: ASLI atau SIMULASI =====
-const IS_IOS = /iPad|iPhone|iPod/.test(navigator.userAgent) ||
-  (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>iOS 17 Simulator Pro</title>
+<style>
+*{box-sizing:border-box}
+body{background:#0b0c10;font-family:-apple-system,BlinkMacSystemFont,"SF Pro Display","SF Pro Text","Helvetica Neue",sans-serif;display:flex;justify-content:center;align-items:center;height:100vh;height:100dvh;margin:0;color:#fff;overflow:hidden}
+.phone-frame{width:375px;height:750px;background:#000;border-radius:50px;border:12px solid #2c2c2e;box-shadow:0 30px 60px rgba(0,0,0,.8),inset 0 0 10px rgba(255,255,255,.1);position:relative;overflow:hidden;display:flex;flex-direction:column}
+@media(max-width:420px){.phone-frame{width:100vw;height:100vh;height:100dvh;border:0;border-radius:0}}
+.dynamic-island{position:absolute;top:12px;left:50%;transform:translateX(-50%);width:115px;height:30px;background:#000;border-radius:20px;z-index:90;display:flex;align-items:center;justify-content:flex-end;padding-right:9px}
+.island-cam{width:11px;height:11px;background:#1a1a1a;border-radius:50%;box-shadow:inset 0 0 2px rgba(255,255,255,.3)}
+.status-bar{display:flex;justify-content:space-between;align-items:center;font-size:13px;font-weight:600;letter-spacing:-.3px}
 
-// mode 'real' = buka app asli | mode 'sim' = layar simulasi di dalam HP
+/* Lock screen */
+.lock-screen{position:absolute;inset:0;background:linear-gradient(rgba(0,0,0,.2),rgba(0,0,0,.55)),url('wallpaper.jpg') center/cover #1c2a48;z-index:50;display:flex;flex-direction:column;justify-content:space-between;padding:20px 24px 35px;transition:transform .4s cubic-bezier(.16,1,.3,1),opacity .3s;cursor:pointer}
+.lock-clock{text-align:center;margin-top:15px}
+.lock-time{font-size:76px;font-weight:300;margin:0;letter-spacing:-2px;text-shadow:0 4px 15px rgba(0,0,0,.6)}
+.lock-date{font-size:17px;font-weight:500;color:rgba(255,255,255,.92);margin-top:4px;text-shadow:0 2px 8px rgba(0,0,0,.6)}
+.notif{background:rgba(35,35,40,.75);backdrop-filter:blur(25px);-webkit-backdrop-filter:blur(25px);border-radius:20px;padding:14px 18px;box-shadow:0 8px 32px rgba(0,0,0,.4);border:1px solid rgba(255,255,255,.12);margin-bottom:15px}
+.notif-head{display:flex;justify-content:space-between;font-size:11px;color:rgba(255,255,255,.7);margin-bottom:4px}
+.notif-title{font-weight:600;font-size:14px;margin:0 0 2px;color:#ffcc00}
+.notif-text{margin:0;font-size:13px;color:#f2f2f7}
+.home-indicator{width:130px;height:5px;background:rgba(255,255,255,.75);border-radius:10px;margin:0 auto}
+
+/* Passcode */
+.passcode{position:absolute;inset:0;background:rgba(20,20,25,.88);backdrop-filter:blur(40px);-webkit-backdrop-filter:blur(40px);z-index:52;display:none;flex-direction:column;align-items:center;justify-content:center;padding:20px}
+.passcode-title{font-size:17px;margin-bottom:25px}
+.dots{display:flex;gap:18px;margin-bottom:45px}
+.p-dot{width:13px;height:13px;border:1.5px solid rgba(255,255,255,.8);border-radius:50%;transition:background .2s}
+.p-dot.filled{background:#fff;border-color:#fff}
+.keypad{display:grid;grid-template-columns:repeat(3,75px);gap:16px}
+.key{width:75px;height:75px;background:rgba(255,255,255,.08);border:0;border-radius:50%;color:#fff;font-size:28px;font-weight:300;cursor:pointer;display:flex;flex-direction:column;align-items:center;justify-content:center;transition:background .15s}
+.key span{font-size:9px;font-weight:600;letter-spacing:1.5px;margin-top:-2px;color:rgba(255,255,255,.6)}
+.key:active{background:rgba(255,255,255,.25)}
+.shake{animation:shake .35s}
+@keyframes shake{25%{transform:translateX(-10px)}75%{transform:translateX(10px)}}
+
+/* Home */
+.home-screen{flex:1;min-height:0;background:linear-gradient(rgba(0,0,0,.15),rgba(0,0,0,.35)),url('home-wallpaper.jpg') center/cover #16213a;position:relative;display:flex;flex-direction:column;padding:45px 16px 12px;overflow:hidden}
+.home-screen>.status-bar{position:absolute;top:12px;left:24px;right:24px}
+.pages{display:flex;width:200%;flex:1;min-height:0;margin-top:20px;transition:transform .35s cubic-bezier(.16,1,.3,1)}
+.home-page{width:50%;padding:10px 4px}
+.app-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:16px 10px}
+.app-item{display:flex;flex-direction:column;align-items:center;cursor:pointer}
+.app-icon{width:58px;height:58px;border-radius:14px;display:flex;justify-content:center;align-items:center;box-shadow:0 4px 12px rgba(0,0,0,.25);transition:transform .15s;overflow:hidden;font-weight:700;font-size:18px}
+.app-icon svg{width:32px;height:32px;display:block}
+.app-icon:active{transform:scale(.92)}
+.app-name{font-size:11px;font-weight:500;margin-top:5px;text-shadow:0 1px 3px rgba(0,0,0,.8);text-align:center}
+.indicators{display:flex;justify-content:center;gap:6px;margin:8px 0 6px}
+.ind{width:6px;height:6px;background:rgba(255,255,255,.4);border-radius:50%;cursor:pointer;transition:all .2s}
+.ind.active{background:#fff;width:14px;border-radius:4px}
+.dock{background:rgba(255,255,255,.2);backdrop-filter:blur(25px);-webkit-backdrop-filter:blur(25px);border-radius:28px;padding:10px 14px;display:flex;justify-content:space-around;box-shadow:0 10px 30px rgba(0,0,0,.2);border:1px solid rgba(255,255,255,.15)}
+.dock .app-icon{width:52px;height:52px}
+.dock .app-icon svg{width:26px;height:26px}
+.dock .app-name{display:none}
+
+/* Layar aplikasi simulasi */
+.app-content{position:absolute;inset:0;background:#1c1c1e;padding:45px 16px 20px;display:none;flex-direction:column;z-index:65;animation:up .3s cubic-bezier(.16,1,.3,1);overflow-y:auto;-webkit-overflow-scrolling:touch}
+@keyframes up{from{transform:translateY(100%)}to{transform:translateY(0)}}
+.app-header{font-size:18px;font-weight:700;margin-bottom:15px;border-bottom:.5px solid rgba(255,255,255,.15);padding-bottom:10px;display:flex;justify-content:space-between;align-items:center}
+.back-btn{background:#3a3a3c;color:#0a84ff;border:0;padding:5px 12px;border-radius:8px;cursor:pointer;font-weight:600;font-size:13px}
+.setting-row{display:flex;justify-content:space-between;padding:12px 0;border-bottom:.5px solid rgba(255,255,255,.1);font-size:14px}
+.setting-row span:last-child{color:#8e8e93}
+.gallery-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:2px;padding-bottom:30px}
+.thumb{aspect-ratio:1;background:#2c2c2e center/cover;cursor:pointer}
+#photoViewer{position:absolute;inset:0;background:#000;z-index:80;display:none;flex-direction:column;justify-content:space-between;padding:50px 0 30px}
+.viewer-img{flex:1;display:flex;justify-content:center;align-items:center;overflow:hidden}
+.viewer-img img{max-width:100%;max-height:100%;object-fit:contain}
+.kakao-head{background:#fee500;color:#3c1e1e;padding:12px 16px;font-weight:700;font-size:17px;display:flex;justify-content:space-between;align-items:center;border-radius:10px;margin-bottom:12px}
+.chat-item{display:flex;align-items:center;gap:12px;padding:10px 0;border-bottom:.5px solid rgba(255,255,255,.1);cursor:pointer}
+.chat-avatar{width:46px;height:46px;border-radius:16px;display:flex;align-items:center;justify-content:center;font-size:20px;flex-shrink:0}
+.chat-name{font-weight:600;font-size:13px;line-height:1.3}
+.chat-prev{font-size:11px;color:#8e8e93;margin-top:3px}
+.viewfinder{flex:1;background:#111;border-radius:14px;position:relative;overflow:hidden;display:flex;align-items:center;justify-content:center;margin-bottom:12px}
+.viewfinder video{width:100%;height:100%;object-fit:cover}
+#toast{position:absolute;left:50%;bottom:96px;transform:translateX(-50%);background:rgba(40,40,45,.95);color:#fff;font-size:13px;padding:9px 16px;border-radius:20px;z-index:100;opacity:0;pointer-events:none;transition:opacity .25s;white-space:nowrap;max-width:90%;overflow:hidden;text-overflow:ellipsis}
+#toast.show{opacity:1}
+</style>
+</head>
+<body>
+
+<div class="phone-frame">
+  <div class="dynamic-island"><div class="island-cam"></div></div>
+
+  <!-- LOCK SCREEN -->
+  <div class="lock-screen" id="lockScreen" onclick="openPasscode()">
+    <div class="status-bar"><span class="clock">19:42</span><span>5G 🔋</span></div>
+    <div class="lock-clock">
+      <h1 class="lock-time clock">19:42</h1>
+      <div class="lock-date" id="dateText"></div>
+    </div>
+    <div>
+      <div class="notif">
+        <div class="notif-head"><span>📅 Kalender • Hari ini</span><span>Baru saja</span></div>
+        <p class="notif-title">First Debut Anniversary</p>
+        <p class="notif-text" id="countdownText">Menghitung hari spesial...</p>
+      </div>
+      <div class="home-indicator"></div>
+    </div>
+  </div>
+
+  <!-- PASSCODE -->
+  <div class="passcode" id="passcodeScreen">
+    <div class="passcode-title">Masukkan Kode Sandi</div>
+    <div class="dots" id="dots"><div class="p-dot"></div><div class="p-dot"></div><div class="p-dot"></div><div class="p-dot"></div></div>
+    <div class="keypad" id="keypad"></div>
+    <button onclick="closePasscode()" style="background:none;border:0;color:rgba(255,255,255,.6);margin-top:25px;cursor:pointer;font-size:14px">Batal</button>
+  </div>
+
+  <!-- HOME SCREEN -->
+  <div class="home-screen">
+    <div class="status-bar"><span class="clock">19:42</span><span>5G 🔋</span></div>
+    <div class="pages" id="pages">
+      <div class="home-page"><div class="app-grid" id="grid0"></div></div>
+      <div class="home-page"><div class="app-grid" id="grid1"></div></div>
+    </div>
+    <div class="indicators">
+      <div class="ind active" onclick="switchPage(0)"></div>
+      <div class="ind" onclick="switchPage(1)"></div>
+    </div>
+    <div class="dock" id="dock"></div>
+  </div>
+
+  <!-- APLIKASI SIMULASI -->
+  <div class="app-content" id="chatApp" style="background:#1e1e1e">
+    <div class="kakao-head"><span>KakaoTalk Chat</span><button class="back-btn" style="background:#fff;color:#3c1e1e" onclick="closeApp()">Tutup</button></div>
+    <div id="chatList"></div>
+  </div>
+
+  <div class="app-content" id="cameraApp" style="background:#000">
+    <div class="app-header"><span>Kamera</span><button class="back-btn" onclick="closeApp()">Tutup</button></div>
+    <div class="viewfinder">
+      <video id="cameraFeed" autoplay muted playsinline></video>
+      <div id="camStatus" style="position:absolute;bottom:12px;font-size:10px;background:rgba(0,0,0,.6);padding:3px 8px;border-radius:20px">Menyiapkan kamera...</div>
+    </div>
+    <div style="display:flex;justify-content:space-around;align-items:center;padding-top:10px">
+      <div style="font-size:12px;color:#aaa">Foto</div>
+      <div style="width:50px;height:50px;border:4px solid #fff;border-radius:50%;display:flex;align-items:center;justify-content:center;cursor:pointer" onclick="toast('Cekrek! 📸')"><div style="width:38px;height:38px;background:#fff;border-radius:50%"></div></div>
+      <div style="font-size:12px;color:#ffcc00;cursor:pointer" onclick="toggleCamera()">🔄 Putar</div>
+    </div>
+  </div>
+
+  <div class="app-content" id="settingsApp">
+    <div class="app-header"><span>Pengaturan</span><button class="back-btn" onclick="closeApp()">Tutup</button></div>
+    <div class="setting-row"><span>Mode Pesawat</span><span>Mati</span></div>
+    <div class="setting-row"><span>Wi-Fi</span><span>Terhubung</span></div>
+    <div class="setting-row"><span>Bluetooth</span><span>Aktif</span></div>
+    <div class="setting-row"><span>Umum</span><span>iOS 17.5 Pro</span></div>
+    <div class="setting-row"><span>Penyimpanan</span><span>142 GB / 256 GB</span></div>
+  </div>
+
+  <div class="app-content" id="weatherApp" style="background:linear-gradient(180deg,#1c3b6b,#0d1b2a)">
+    <div class="app-header"><span>Cuaca</span><button class="back-btn" onclick="closeApp()">Tutup</button></div>
+    <div style="text-align:center;margin-top:20px"><h2>Seoul, Korea Selatan</h2><h1 style="font-size:56px;margin:8px 0">18°C</h1><p style="font-size:13px">Cerah berawan • Nyaman</p></div>
+  </div>
+
+  <div class="app-content" id="compassApp">
+    <div class="app-header"><span>Kompas</span><button class="back-btn" onclick="closeApp()">Tutup</button></div>
+    <div style="text-align:center;margin-top:40px"><div style="font-size:64px;margin-bottom:15px">🧭</div><h2 style="color:#ff3b30;font-size:20px">U 0° Utara</h2><p style="color:#8e8e93;font-size:12px">Lat: 37.5665° N, Lon: 126.9780° E</p></div>
+  </div>
+
+  <div class="app-content" id="galleryApp">
+    <div class="app-header"><span>Foto</span><button class="back-btn" onclick="closeApp()">Tutup</button></div>
+    <div style="font-size:12px;color:#8e8e93;margin-bottom:8px;font-weight:500">Semua Foto</div>
+    <div class="gallery-grid" id="galleryGrid"></div>
+  </div>
+
+  <div id="photoViewer">
+    <div style="padding:10px 20px;display:flex;justify-content:space-between;align-items:center">
+      <button class="back-btn" onclick="closePhoto()">‹ Album</button>
+      <span style="font-size:13px;font-weight:500;color:#aaa">Semua Foto</span>
+      <div style="width:50px"></div>
+    </div>
+    <div class="viewer-img"><img id="viewerImage" src="" alt="Foto"></div>
+  </div>
+
+  <div id="toast"></div>
+</div>
+
+<script>
+const $ = id => document.getElementById(id);
+const ic = (d, f = '#fff') => `<svg viewBox="0 0 24 24" fill="${f}"><path d="${d}"/></svg>`;
+
+/* ===== DAFTAR APP (ikon) ===== */
 const APPS = {
-  spotify:    { mode: 'real', scheme: 'spotify:track:02W2P4Zd9a7LddUMlIH0Bp', web: 'https://open.spotify.com/track/02W2P4Zd9a7LddUMlIH0Bp' },
-  ig:         { mode: 'real', scheme: 'instagram://user?username=unknown_sst', web: 'https://www.instagram.com/unknown_sst/' },
-  twitter:    { mode: 'real', scheme: 'twitter://timeline', web: 'https://x.com/' },
-  youtube:    { mode: 'real', scheme: 'youtube://www.youtube.com/watch?v=FFcgGFpO1n0', web: 'https://youtu.be/FFcgGFpO1n0' },
-  maps:       { mode: 'real', scheme: 'comgooglemaps://?q=Depok', web: 'https://www.google.com/maps/search/Depok' },
-  oliveyoung: { mode: 'real', web: 'https://global.oliveyoung.com/' },
-  safari:     { mode: 'real', web: 'https://www.google.com/' },
-  chat:       { mode: 'sim' }   // ganti ke 'real' + scheme:'kakaotalk://' kalau mau buka KakaoTalk asli
+  chat:{n:'KakaoTalk',bg:'#fee500',h:ic('M12 3C6.48 3 2 6.58 2 11c0 2.84 1.83 5.32 4.58 6.74-.15.54-.56 1.96-.64 2.27-.1.37.14.36.29.26.12-.08 1.91-1.3 2.68-1.83.68.1 1.39.15 2.09.15 5.52 0 10-3.58 10-8s-4.48-8-10-8z','#3c1e1e')},
+  ig:{n:'Instagram',bg:'radial-gradient(circle at 30% 107%,#fdf497 0%,#fdf497 5%,#fd5949 45%,#d6249f 60%,#285AEB 90%)',h:'<svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2"><rect x="2" y="2" width="20" height="20" rx="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg>'},
+  twitter:{n:'Twitter',bg:'#000',h:ic('M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z')},
+  youtube:{n:'YouTube',bg:'#f00',h:ic('M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z')},
+  spotify:{n:'Spotify',bg:'#1db954',h:ic('M12 0C5.4 0 0 5.4 0 12s5.4 12 12 12 12-5.4 12-12S18.6 0 12 0zm5.521 17.34c-.24.359-.72.48-1.08.24-2.999-1.8-6.781-2.221-11.221-1.2-.42.12-.84-.18-.96-.6-.12-.42.18-.84.6-.96 4.8-1.08 9.001-.6 12.48 1.56.36.24.48.72.24 1.08zm1.56-3.48c-.3.48-.9.6-1.38.3-3.42-2.1-8.64-2.7-12.66-1.44-.54.18-1.14-.12-1.32-.66-.18-.54.12-1.14.66-1.32 4.56-1.38 10.38-.72 14.34 1.68.48.3.66.9.36 1.44zm.12-3.66C14.46 7.92 8.4 7.68 4.92 8.76c-.66.18-1.38-.18-1.56-.84-.18-.66.18-1.38.84-1.56 4.02-1.26 10.74-.96 15.12 1.62.6.36.78 1.14.42 1.74-.36.6-1.14.78-1.74.42z')},
+  camera:{n:'Kamera',bg:'#e5e5ea',h:ic('M4 7h3l2-2h6l2 2h3a2 2 0 0 1 2 2v10a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V9a2 2 0 0 1 2-2zm8 11a5 5 0 1 0 0-10 5 5 0 0 0 0 10z','#3a3a3c')},
+  oliveyoung:{n:'Olive Young',bg:'#00b074',h:'<span style="color:#fff">OY</span>'},
+  maps:{n:'Maps',bg:'#e8eaed',h:ic('M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5a2.5 2.5 0 0 1 0-5 2.5 2.5 0 0 1 0 5z','#ea4335')},
+  safari:{n:'Safari',bg:'linear-gradient(180deg,#18a0fb,#0060df)',h:'<svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2"><circle cx="12" cy="12" r="10"/><polygon points="16.24 7.76 14.12 14.12 7.76 16.24 9.88 9.88 16.24 7.76" fill="#fff"/></svg>'},
+  notes:{n:'Catatan',bg:'#ffcc00',h:ic('M3 3h18v18H3V3zm3 3v2h12V6H6zm0 4v2h12v-2H6zm0 4v2h8v-2H6z','#333')},
+  settings:{n:'Pengaturan',bg:'#8e8e93',h:ic('M19.14 12.94c.04-.3.06-.61.06-.94 0-.32-.02-.64-.07-.94l2.03-1.58c.18-.14.23-.41.12-.61l-1.92-3.32c-.12-.22-.37-.29-.59-.22l-2.39.96c-.5-.38-1.03-.7-1.62-.94l-.36-2.54c-.04-.24-.24-.41-.48-.41h-3.84c-.24 0-.43.17-.47.41l-.36 2.54c-.59.24-1.13.57-1.62.94l-2.39-.96c-.22-.08-.47 0-.59.22L2.74 8.87c-.12.21-.08.47.12.61l2.03 1.58c-.05.3-.09.63-.09.94s.02.64.07.94l-2.03 1.58c-.18.14-.23.41-.12.61l1.92 3.32c.12.22.37.29.59.22l2.39-.96c.5.38 1.03.7 1.62.94l.36 2.54c.05.24.24.41.48.41h3.84c.24 0 .44-.17.47-.41l.36-2.54c.59-.24 1.13-.56 1.62-.94l2.39.96c.22.08.47 0 .59-.22l1.92-3.32c.12-.22.07-.47-.12-.61l-2.01-1.58zM12 15.6c-1.98 0-3.6-1.62-3.6-3.6s1.62-3.6 3.6-3.6 3.6 1.62 3.6 3.6-1.62 3.6-3.6 3.6z')},
+  weather:{n:'Cuaca',bg:'linear-gradient(180deg,#5ac8fa,#007aff)',h:ic('M19.35 10.04C18.67 6.59 15.64 4 12 4 9.11 4 6.6 5.64 5.35 8.04 2.34 8.36 0 10.91 0 14c0 3.31 2.69 6 6 6h13c2.76 0 5-2.24 5-5 0-2.64-2.05-4.78-4.65-4.96z')},
+  compass:{n:'Kompas',bg:'#1c1c1e',h:ic('M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zm-1-13h2v6h-2zm0 8h2v2h-2z','#ff3b30')},
+  gallery:{n:'Foto',bg:'linear-gradient(135deg,#ff9500,#ff2d55)',h:ic('M21 19V5c0-1.1-.9-2-2-2H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2zM8.5 13.5l2.5 3.01L14.5 12l4.5 6H5l3.5-4.5z')},
+  phone:{n:'Telepon',bg:'#34c759',h:ic('M6.62 10.79c1.44 2.83 3.76 5.14 6.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1-9.39 0-17-7.61-17-17 0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.11.35.03.74-.25 1.02l-2.2 2.2z')}
 };
+const PAGES = [
+  ['chat','ig','twitter','youtube','spotify','camera','oliveyoung','maps'],
+  ['safari','notes','settings','weather','compass','gallery']
+];
+const DOCK = ['phone','safari','chat','spotify'];
+
+/* ===== APP ASLI: scheme = buka app di iPhone, web = link https / cadangan ===== */
+const REAL = {
+  spotify:   {scheme:'spotify:track:02W2P4Zd9a7LddUMlIH0Bp', web:'https://open.spotify.com/track/02W2P4Zd9a7LddUMlIH0Bp'},
+  ig:        {scheme:'instagram://user?username=unknown_sst', web:'https://www.instagram.com/unknown_sst/'},
+  twitter:   {scheme:'twitter://timeline', web:'https://x.com/'},
+  youtube:   {scheme:'youtube://www.youtube.com/watch?v=FFcgGFpO1n0', web:'https://youtu.be/FFcgGFpO1n0'},
+  maps:      {scheme:'comgooglemaps://?q=Depok', web:'https://www.google.com/maps/search/Depok'},
+  oliveyoung:{web:'https://global.oliveyoung.com/'},
+  safari:    {web:'https://www.google.com/'}
+};
+const IS_IOS = /iPad|iPhone|iPod/.test(navigator.userAgent) || (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
 
 function launchReal(cfg) {
   if (IS_IOS && cfg.scheme) {
     let left = false;
     const onHide = () => { if (document.hidden) left = true; };
     document.addEventListener('visibilitychange', onHide);
-    window.location.href = cfg.scheme;              // coba buka app
+    window.location.href = cfg.scheme;
     setTimeout(() => {
       document.removeEventListener('visibilitychange', onHide);
-      if (!left) window.location.href = cfg.web;    // app tidak ada -> buka web
+      if (!left) window.location.href = cfg.web;
     }, 1500);
   } else {
-    // Android/desktop: link https otomatis membuka app kalau terpasang
     window.open(cfg.web, '_blank');
   }
 }
 
 function openApp(name) {
-  const cfg = APPS[name] || { mode: 'sim' };
-  if (cfg.mode === 'real') return launchReal(cfg);
-
-  const screen = document.getElementById(name + 'App');
-  if (!screen) { alert('Aplikasi ' + name + ' belum tersedia di simulator.'); return; }
+  if (REAL[name]) return launchReal(REAL[name]);
+  const screen = $(name + 'App');
+  if (!screen) return toast('Aplikasi ' + APPS[name].n + ' belum tersedia');
   closeApp();
   screen.style.display = 'flex';
   if (name === 'camera') startCamera();
@@ -43,32 +245,118 @@ function openApp(name) {
 
 function closeApp() {
   document.querySelectorAll('.app-content').forEach(el => el.style.display = 'none');
-  document.getElementById('photoViewer').style.display = 'none';
+  $('photoViewer').style.display = 'none';
   stopCamera();
 }
 
-// ===== Kamera asli =====
-let camStream = null, camFacing = 'environment';
+/* ===== Render home & dock ===== */
+const tile = k => `<div class="app-item" onclick="openApp('${k}')"><div class="app-icon" style="background:${APPS[k].bg}">${APPS[k].h}</div><div class="app-name">${APPS[k].n}</div></div>`;
+PAGES.forEach((p, i) => $('grid' + i).innerHTML = p.map(tile).join(''));
+$('dock').innerHTML = DOCK.map(tile).join('');
 
-async function startCamera() {
-  const video = document.getElementById('cameraFeed');
-  const status = document.getElementById('camStatus');
-  stopCamera();
-  try {
-    camStream = await navigator.mediaDevices.getUserMedia({ video: { facingMode: camFacing }, audio: false });
-    video.srcObject = camStream;
-    video.play();
-    status.innerText = camFacing === 'user' ? 'Kamera Depan 🟢' : 'Kamera Belakang 🟢';
-  } catch (e) {
-    status.innerText = 'Kamera tidak tersedia / izin ditolak';
+function switchPage(i) {
+  $('pages').style.transform = `translateX(-${i * 50}%)`;
+  document.querySelectorAll('.ind').forEach((d, n) => d.classList.toggle('active', n === i));
+}
+
+/* ===== Jam & countdown ===== */
+function tick() {
+  const now = new Date();
+  const t = String(now.getHours()).padStart(2, '0') + ':' + String(now.getMinutes()).padStart(2, '0');
+  document.querySelectorAll('.clock').forEach(el => el.innerText = t);
+  $('dateText').innerText = now.toLocaleDateString('id-ID', {weekday: 'long', day: 'numeric', month: 'long'});
+  const days = Math.ceil((new Date('2027-06-01') - now) / 86400000);
+  $('countdownText').innerText = days >= 0 ? `H-${days} menuju hari spesial kita! ✨` : 'Sudah melewati anniversary! 🎉';
+}
+setInterval(tick, 1000); tick();
+
+/* ===== Toast ===== */
+let toastTimer;
+function toast(msg) {
+  const t = $('toast');
+  t.innerText = msg;
+  t.classList.add('show');
+  clearTimeout(toastTimer);
+  toastTimer = setTimeout(() => t.classList.remove('show'), 1800);
+}
+
+/* ===== Lock screen & PIN (0106) ===== */
+const CORRECT_PIN = '0106';
+let pin = '';
+const KEYS = [['1',''],['2','ABC'],['3','DEF'],['4','GHI'],['5','JKL'],['6','MNO'],['7','PQRS'],['8','TUV'],['9','WXYZ'],['',''],['0',''],['⌫','']];
+$('keypad').innerHTML = KEYS.map(([k, s]) => k === '' ? '<button class="key" style="visibility:hidden"></button>'
+  : k === '⌫' ? '<button class="key" style="font-size:16px;font-weight:500" onclick="clearKey()">⌫</button>'
+  : `<button class="key" onclick="pressKey('${k}')">${k}${s ? '<span>' + s + '</span>' : ''}</button>`).join('');
+
+function updateDots() {
+  document.querySelectorAll('.p-dot').forEach((d, i) => d.classList.toggle('filled', i < pin.length));
+}
+function openPasscode() { $('passcodeScreen').style.display = 'flex'; }
+function closePasscode() { $('passcodeScreen').style.display = 'none'; pin = ''; updateDots(); }
+function clearKey() { pin = ''; updateDots(); }
+function pressKey(n) {
+  if (pin.length >= 4) return;
+  pin += n; updateDots();
+  if (pin.length === 4) setTimeout(checkPin, 200);
+}
+function checkPin() {
+  if (pin === CORRECT_PIN) {
+    $('passcodeScreen').style.display = 'none';
+    const ls = $('lockScreen');
+    ls.style.transform = 'translateY(-100%)';
+    ls.style.opacity = '0';
+    setTimeout(() => ls.style.display = 'none', 400);
+  } else {
+    const d = $('dots');
+    d.classList.remove('shake'); void d.offsetWidth; d.classList.add('shake');
+    toast('Kode sandi salah');
+    pin = ''; updateDots();
   }
 }
 
+/* ===== KakaoTalk (simulasi) ===== */
+const CHATS = [
+  ['7️⃣','#ffcc00','7dream 4ever (Mark, Renjun, Jeno, Haechan, Jaemin, Chenle, Jisung)','Mark: Guys kumpul di lantai 3 ya...'],
+  ['6️⃣','#ff9500','6dream member only (Tanpa Mark)','Haechan: Sst jangan bilang-bilang...'],
+  ['🌐','#007aff','NCT All Member (WayV, 127, Dream, Wish)','Xiaojun: Siapa yang mau pesan kopi?'],
+  ['🦊','#34c759','Renjun','Lagi di mana?'],
+  ['🐶','#34c759','Jeno','Udah makan belom?'],
+  ['🐰','#34c759','Jaemin','Foto ini lucu banget wkwk'],
+  ['🐻','#34c759','Haechan','Peer lu udah belum?'],
+  ['💼','#af52de','Pink Slime Manager','Jadwal latihan minggu depan ya.'],
+  ['❤️','#ff2d55','Baba & Mama','Jangan lupa jaga kesehatan ya nak.']
+];
+$('chatList').innerHTML = CHATS.map(([e, bg, n, p]) =>
+  `<div class="chat-item" onclick="toast('Membuka chat: ${n.replace(/'/g, "\\'").slice(0, 28)}')"><div class="chat-avatar" style="background:${bg}">${e}</div><div><div class="chat-name">${n}</div><div class="chat-prev">${p}</div></div></div>`).join('');
+
+/* ===== Galeri ===== */
+let g = '';
+for (let i = 1; i <= 9; i++) g += `<div class="thumb" style="background-image:url('foto${i}.jpg')" onclick="openPhoto('foto${i}.jpg')"></div>`;
+$('galleryGrid').innerHTML = g;
+function openPhoto(src) { $('viewerImage').src = src; $('photoViewer').style.display = 'flex'; }
+function closePhoto() { $('photoViewer').style.display = 'none'; }
+
+/* ===== Kamera asli ===== */
+let camStream = null, camFacing = 'environment';
+async function startCamera() {
+  const video = $('cameraFeed'), status = $('camStatus');
+  stopCamera();
+  try {
+    camStream = await navigator.mediaDevices.getUserMedia({video: {facingMode: camFacing}, audio: false});
+    video.srcObject = camStream;
+    await video.play();
+    status.innerText = camFacing === 'user' ? 'Kamera Depan 🟢' : 'Kamera Belakang 🟢';
+  } catch (e) {
+    status.innerText = 'Kamera tidak tersedia atau izin ditolak';
+  }
+}
 function stopCamera() {
   if (camStream) { camStream.getTracks().forEach(t => t.stop()); camStream = null; }
 }
-
 function toggleCamera() {
   camFacing = camFacing === 'user' ? 'environment' : 'user';
   startCamera();
 }
+</script>
+</body>
+</html>
