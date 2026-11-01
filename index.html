@@ -87,10 +87,45 @@ body{background:#0b0c10;font-family:-apple-system,BlinkMacSystemFont,"SF Pro Dis
 .yt-av{width:34px;height:34px;border-radius:50%;background:#3a3a3c;display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:700;flex-shrink:0}
 .yt-title{font-size:13px;font-weight:600;line-height:1.3}
 .yt-sub{font-size:11px;color:#aaa;margin-top:3px}
-.sp-row{display:flex;align-items:center;gap:12px;background:#282828;border-radius:10px;padding:10px;margin-bottom:10px;color:#fff;text-decoration:none}
-.sp-cover{width:48px;height:48px;border-radius:6px;background:#3a3a3c;display:flex;align-items:center;justify-content:center;font-size:24px;flex-shrink:0}
-.sp-mini{position:sticky;bottom:0;margin:20px -16px 0;background:#2a2a2a;padding:10px 16px 18px;display:flex;align-items:center;gap:10px}
 .sp-play{background:#fff;color:#000;border:0;border-radius:50%;width:34px;height:34px;font-size:13px;cursor:pointer}
+.kk-top{display:flex;justify-content:space-between;align-items:center;padding:6px 16px 10px;font-size:22px}
+.kk-icons{display:flex;gap:14px;align-items:center;font-size:16px}
+.kk-row{display:flex;align-items:center;gap:12px;padding:9px 16px;cursor:pointer}
+.kk-row:active{background:#2a2a2a}
+.avatar{position:relative;width:48px;height:48px;border-radius:18px;overflow:hidden;flex-shrink:0;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:18px}
+.avatar img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.avatar.grp{display:grid;grid-template-columns:1fr 1fr;gap:1px;background:#1b1b1b}
+.avatar.grp div{position:relative;display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:700;overflow:hidden}
+.kk-main{flex:1;min-width:0}
+.kk-name{font-size:14px;font-weight:600;display:flex;gap:6px;align-items:baseline}
+.kk-name small{color:#8e8e93;font-weight:400;font-size:12px}
+.kk-prev{font-size:12px;color:#9a9a9f;margin-top:3px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.kk-side{display:flex;flex-direction:column;align-items:flex-end;gap:5px;font-size:11px;color:#8e8e93;min-width:38px}
+.kk-badge{background:#ff3b30;color:#fff;border-radius:10px;min-width:18px;padding:1px 6px;font-size:11px;font-weight:700;text-align:center}
+.kk-tabs{position:sticky;bottom:0;margin-top:auto;display:flex;justify-content:space-around;background:#1b1b1b;border-top:.5px solid #333;padding:8px 0 16px;font-size:20px}
+.kk-tabs span{display:flex;flex-direction:column;align-items:center;gap:2px;color:#8e8e93;position:relative}
+.kk-tabs span.on{color:#fee500}
+.kk-tabs small{font-size:10px}
+.kk-tabs i{position:absolute;top:-4px;right:-12px;background:#ff3b30;color:#fff;font-style:normal;font-size:10px;border-radius:9px;padding:0 5px}
+.sp-top{display:flex;align-items:center;gap:8px;padding:6px 16px 12px}
+.sp-me{width:32px;height:32px;border-radius:50%;background:#7c3aed;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:14px;margin-right:4px}
+.sp-quick{display:grid;grid-template-columns:1fr 1fr;gap:8px;padding:0 16px}
+.sp-tile{display:flex;align-items:center;gap:8px;background:rgba(255,255,255,.1);border-radius:6px;overflow:hidden;color:#fff;text-decoration:none;height:52px;font-size:12px;font-weight:700;cursor:pointer}
+.sp-tile .cv{width:52px;height:52px;display:flex;align-items:center;justify-content:center;font-size:22px;flex-shrink:0}
+.sp-tile.art .cv{border-radius:50%}
+.sp-h{font-size:19px;font-weight:700;padding:22px 16px 10px}
+.sp-shelf{display:flex;gap:14px;padding:0 16px;overflow-x:auto}
+.sp-card{width:140px;flex-shrink:0;color:#fff;text-decoration:none}
+.sp-card .cv{width:140px;height:140px;display:flex;align-items:center;justify-content:center;font-size:48px;border-radius:4px}
+.sp-card.art .cv{border-radius:50%}
+.sp-card b{display:block;font-size:13px;margin-top:8px}
+.sp-card small{color:#b3b3b3;font-size:12px}
+.sp-bottom{position:sticky;bottom:0;margin-top:auto;background:#121212;padding-top:6px}
+.sp-mini{margin:0 8px 6px;background:#3a2d4d;border-radius:8px;padding:8px 10px;display:flex;align-items:center;gap:10px}
+.sp-nav{display:flex;justify-content:space-around;padding:8px 0 16px;color:#b3b3b3;font-size:20px}
+.sp-nav span{display:flex;flex-direction:column;align-items:center;gap:2px}
+.sp-nav span.on{color:#fff}
+.sp-nav small{font-size:10px}
 #toast{position:absolute;left:50%;bottom:96px;transform:translateX(-50%);background:rgba(40,40,45,.95);color:#fff;font-size:13px;padding:9px 16px;border-radius:20px;z-index:100;opacity:0;pointer-events:none;transition:opacity .25s;white-space:nowrap;max-width:90%;overflow:hidden;text-overflow:ellipsis}
 #toast.show{opacity:1}
 </style>
@@ -140,9 +175,10 @@ body{background:#0b0c10;font-family:-apple-system,BlinkMacSystemFont,"SF Pro Dis
   </div>
 
   <!-- APLIKASI SIMULASI -->
-  <div class="app-content" id="chatApp" style="background:#1e1e1e">
-    <div class="kakao-head"><span>KakaoTalk Chat</span><button class="back-btn" style="background:#fff;color:#3c1e1e" onclick="closeApp()">Tutup</button></div>
+  <div class="app-content" id="chatApp" style="background:#1b1b1b;padding:45px 0 0">
+    <div class="kk-top"><b>Obrolan</b><span class="kk-icons"><span>🔍</span><span>➕</span><span>⚙️</span><button class="back-btn" onclick="closeApp()">Tutup</button></span></div>
     <div id="chatList"></div>
+    <div class="kk-tabs"><span>👤<small>Teman</small></span><span class="on">💬<small>Obrolan</small><i>15</i></span><span>🧭<small>Lihat</small></span><span>⋯<small>Lainnya</small></span></div>
   </div>
 
   <div class="app-content" id="cameraApp" style="background:#000">
@@ -190,15 +226,19 @@ body{background:#0b0c10;font-family:-apple-system,BlinkMacSystemFont,"SF Pro Dis
     <div id="ytFeed"></div>
   </div>
 
-  <!-- SPOTIFY (beranda simulasi) -->
-  <div class="app-content" id="spotifyApp" style="background:linear-gradient(#1f3a2a,#121212 45%);padding-bottom:0">
-    <div class="app-header" style="border:0"><span>Selamat malam</span><button class="back-btn" onclick="closeApp()">Tutup</button></div>
-    <div style="font-size:13px;color:#1db954;font-weight:700;margin-bottom:10px">🎧 Rekomendasi Khusus Untukmu</div>
-    <div id="spList"></div>
-    <div class="sp-mini">
-      <div style="font-size:26px">🦊</div>
-      <div style="flex:1;min-width:0"><div style="font-size:12px;font-weight:600">Renjun Solo Track</div><div style="font-size:10px;color:#b3b3b3">NCT / Soloist</div></div>
-      <button class="sp-play" onclick="togglePlay(this)">▶</button>
+  <!-- SPOTIFY -->
+  <div class="app-content" id="spotifyApp" style="background:linear-gradient(#2a3f5f 0,#121212 260px);padding:45px 0 0">
+    <div class="sp-top"><div class="sp-me">S</div><span class="chip on" style="background:#1db954;color:#000">Semua</span><span class="chip">Musik</span><span class="chip">Podcast</span><button class="back-btn" style="margin-left:auto" onclick="closeApp()">Tutup</button></div>
+    <div class="sp-quick" id="spQuick"></div>
+    <div class="sp-h">Rekomendasi khusus untukmu</div>
+    <div class="sp-shelf" id="spShelf"></div>
+    <div class="sp-bottom">
+      <div class="sp-mini">
+        <div style="width:38px;height:38px;border-radius:4px;background:linear-gradient(135deg,#ff9a56,#e0457b);display:flex;align-items:center;justify-content:center;font-size:20px">🦊</div>
+        <div style="flex:1;min-width:0"><div style="font-size:12px;font-weight:600">Huang Renjun</div><div style="font-size:10px;color:#b3b3b3">Lagu</div></div>
+        <button class="sp-play" onclick="togglePlay(this)">▶</button>
+      </div>
+      <div class="sp-nav"><span class="on">🏠<small>Beranda</small></span><span>🔍<small>Cari</small></span><span>📚<small>Koleksi Kamu</small></span></div>
     </div>
   </div>
 
@@ -297,21 +337,28 @@ function switchIgTab(t) {
 
 /* ===== YouTube: video tampil di beranda, link hanya terbuka kalau diketuk ===== */
 const YT = [
-  ['https://youtu.be/FFcgGFpO1n0?si=zSjNYrr7gR9EX_Vz','FFcgGFpO1n0','NCT Airport Departure / Arrival'],
-  ['https://youtu.be/4QskmxtudzQ?si=ZAVgO1nlpXV1i19o','4QskmxtudzQ','Renjun / Member Focus Airport'],
-  ['https://youtu.be/BVOSll9ou7U?si=LdVFfg2Ys9roQpzb','BVOSll9ou7U','NCT Dream Flight Moments'],
-  ['https://youtu.be/LFbU0A1-IH8?si=6l2lczXvFN0MkYtF','LFbU0A1-IH8','Special Departure Update']
+  ['https://youtu.be/FFcgGFpO1n0?si=zSjNYrr7gR9EX_Vz','FFcgGFpO1n0',`#黄仁俊 #NCT_RENJUN 「同谋者的默契」（「Echoes Between Us」）- Chinese Special EP MV is coming🎬| TME腾讯音乐`],
+  ['https://youtu.be/4QskmxtudzQ?si=ZAVgO1nlpXV1i19o','4QskmxtudzQ',`NCT 운동회 한다는데? “어느 엔시티.” | 《 2026 NCT 육상 선수권 대회 》`],
+  ['https://youtu.be/BVOSll9ou7U?si=LdVFfg2Ys9roQpzb','BVOSll9ou7U',`Zootopia in MACAU🦊ིྀི🐾 그리고 시상식까지🏆 | RENJUN TMEA 2026 Behind`],
+  ['https://youtu.be/LFbU0A1-IH8?si=6l2lczXvFN0MkYtF','LFbU0A1-IH8',`NCT DREAM 엔시티 드림 'The Sun' MV`]
 ];
 $('ytFeed').innerHTML = YT.map(([url, id, title]) =>
-  `<a class="yt-card" href="${url}" target="_blank" rel="noopener"><div class="yt-thumb" style="background-image:url('https://i.ytimg.com/vi/${id}/hqdefault.jpg')"><span>▶</span></div><div class="yt-meta"><div class="yt-av">N</div><div><div class="yt-title">${title}</div><div class="yt-sub">Bandara &amp; Updates</div></div></div></a>`).join('');
+  `<a class="yt-card" href="${url}" target="_blank" rel="noopener"><div class="yt-thumb" style="background-image:url('https://i.ytimg.com/vi/${id}/hqdefault.jpg')"><span>▶</span></div><div class="yt-meta"><div class="yt-av">N</div><div><div class="yt-title">${title}</div><div class="yt-sub">Ketuk untuk menonton</div></div></div></a>`).join('');
 
-/* ===== Spotify: lagu tampil di beranda, link hanya terbuka kalau diketuk ===== */
-const SP = [
-  ['🦊','Renjun Solo Track','NCT / Soloist','https://open.spotify.com/intl-id/track/02W2P4Zd9a7LddUMlIH0Bp?si=115a9a36cfcd4c36'],
-  ['🎵','Track Session 2','Alternative link','https://open.spotify.com/intl-id/track/02W2P4Zd9a7LddUMlIH0Bp?si=fdc228b4c2024de2']
+/* ===== Spotify: tampil di beranda, link hanya terbuka kalau diketuk ===== */
+const SPT = [
+  {n:'Huang Renjun',s:'Lagu',url:'https://open.spotify.com/intl-id/track/02W2P4Zd9a7LddUMlIH0Bp?si=115a9a36cfcd4c36',bg:'linear-gradient(135deg,#ff9a56,#e0457b)',e:'🦊'},
+  {n:'NCT DREAM',s:'Artis',url:'https://open.spotify.com/intl-id/artist/1gBUSTR3TyDdTVFIaQnc02?si=TakpOQhTSpuWnjEnHwvPtw',bg:'linear-gradient(135deg,#43e97b,#1db9a8)',e:'🌟',art:1}
 ];
-$('spList').innerHTML = SP.map(([e, n, a, url]) =>
-  `<a class="sp-row" href="${url}" target="_blank" rel="noopener"><div class="sp-cover">${e}</div><div><div style="font-size:14px;font-weight:600">${n}</div><div style="font-size:11px;color:#b3b3b3;margin-top:2px">${a}</div></div></a>`).join('');
+const SPF = [
+  {n:'Lagu yang Disukai',bg:'linear-gradient(135deg,#4b2cc9,#a8c0ff)',e:'💚'},
+  {n:'Daily Mix 1',bg:'linear-gradient(135deg,#1f4037,#99f2c8)',e:'🎶'}
+];
+const tag = (x, cls, inner) => x.url
+  ? `<a class="${cls}" href="${x.url}" target="_blank" rel="noopener">${inner}</a>`
+  : `<div class="${cls}" onclick="toast('Hanya tampilan simulasi')">${inner}</div>`;
+$('spQuick').innerHTML = [...SPT, ...SPF].map(x => tag(x, 'sp-tile' + (x.art ? ' art' : ''), `<div class="cv" style="background:${x.bg}">${x.e}</div>${x.n}`)).join('');
+$('spShelf').innerHTML = SPT.map(x => tag(x, 'sp-card' + (x.art ? ' art' : ''), `<div class="cv" style="background:${x.bg}">${x.e}</div><b>${x.n}</b><small>${x.s}</small>`)).join('');
 function togglePlay(b) { b.textContent = b.textContent === '▶' ? '⏸' : '▶'; }
 
 function closeApp() {
@@ -384,20 +431,26 @@ function checkPin() {
   }
 }
 
-/* ===== KakaoTalk (simulasi) ===== */
+/* ===== KakaoTalk (simulasi) =====
+   Foto profil: taruh file profil-renjun.jpg, profil-haechan.jpg, profil-jaemin.jpg,
+   profil-jisung.jpg, profil-chenle.jpg, profil-jeno.jpg di folder yang sama dengan index.html.
+   Kalau fotonya belum ada, otomatis tampil huruf awal berwarna. */
+const MEM = {renjun:['Renjun','#ff9500'], haechan:['Haechan','#af52de'], jaemin:['Jaemin','#34c759'], jisung:['Jisung','#0a84ff'], chenle:['Chenle','#ff2d55'], jeno:['Jeno','#5ac8fa']};
+const pic = k => `<span>${MEM[k][0][0]}</span><img src="profil-${k}.jpg" alt="" onerror="this.remove()">`;
 const CHATS = [
-  ['7️⃣','#ffcc00','7dream 4ever (Mark, Renjun, Jeno, Haechan, Jaemin, Chenle, Jisung)','Mark: Guys kumpul di lantai 3 ya...'],
-  ['6️⃣','#ff9500','6dream member only (Tanpa Mark)','Haechan: Sst jangan bilang-bilang...'],
-  ['🌐','#007aff','NCT All Member (WayV, 127, Dream, Wish)','Xiaojun: Siapa yang mau pesan kopi?'],
-  ['🦊','#34c759','Renjun','Lagi di mana?'],
-  ['🐶','#34c759','Jeno','Udah makan belom?'],
-  ['🐰','#34c759','Jaemin','Foto ini lucu banget wkwk'],
-  ['🐻','#34c759','Haechan','Peer lu udah belum?'],
-  ['💼','#af52de','Pink Slime Manager','Jadwal latihan minggu depan ya.'],
-  ['❤️','#ff2d55','Baba & Mama','Jangan lupa jaga kesehatan ya nak.']
+  {n:'nitip bakwan sayur goceng', m:6, p:'Jeno: yang mau bakwan angkat tangan 🙋', t:'19.12', u:12, g:['renjun','haechan','jaemin','jisung']},
+  {n:'Haechan', k:'haechan', p:'belum dapet cuti jir', t:'18.40', u:2},
+  {n:'Jeno',    k:'jeno',    p:'ban sepeda gua meledak', t:'16.31', u:1},
+  {n:'Chenle',  k:'chenle',  p:'Besok jadi kan?', t:'Kemarin', u:0},
+  {n:'Jaemin',  k:'jaemin',  p:'Oke nanti kabarin ya', t:'Kemarin', u:0},
+  {n:'Jisung',  k:'jisung',  p:'Siap', t:'Senin', u:0}
 ];
-$('chatList').innerHTML = CHATS.map(([e, bg, n, p]) =>
-  `<div class="chat-item" onclick="toast('Membuka chat: ${n.replace(/'/g, "\\'").slice(0, 28)}')"><div class="chat-avatar" style="background:${bg}">${e}</div><div><div class="chat-name">${n}</div><div class="chat-prev">${p}</div></div></div>`).join('');
+$('chatList').innerHTML = CHATS.map(c => {
+  const av = c.g
+    ? `<div class="avatar grp">${c.g.map(k => `<div style="background:${MEM[k][1]}">${pic(k)}</div>`).join('')}</div>`
+    : `<div class="avatar" style="background:${MEM[c.k][1]}">${pic(c.k)}</div>`;
+  return `<div class="kk-row" onclick="toast('Membuka obrolan: ${c.n}')">${av}<div class="kk-main"><div class="kk-name">${c.n}${c.m ? `<small>${c.m}</small>` : ''}</div><div class="kk-prev">${c.p}</div></div><div class="kk-side"><span>${c.t}</span>${c.u ? `<span class="kk-badge">${c.u}</span>` : ''}</div></div>`;
+}).join('');
 
 /* ===== Galeri ===== */
 let g = '';
