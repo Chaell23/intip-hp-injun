@@ -75,6 +75,22 @@ body{background:#0b0c10;font-family:-apple-system,BlinkMacSystemFont,"SF Pro Dis
 .chat-prev{font-size:11px;color:#8e8e93;margin-top:3px}
 .viewfinder{flex:1;background:#111;border-radius:14px;position:relative;overflow:hidden;display:flex;align-items:center;justify-content:center;margin-bottom:12px}
 .viewfinder video{width:100%;height:100%;object-fit:cover}
+.ig-tab{flex:1;text-align:center;padding:8px;cursor:pointer;font-size:14px}
+.ig-tab.active{border-bottom:2px solid #fff}
+.chips{display:flex;gap:8px;padding:0 16px 10px;overflow-x:auto}
+.chip{background:#272727;border-radius:8px;padding:6px 12px;font-size:12px;white-space:nowrap}
+.chip.on{background:#fff;color:#000}
+.yt-card{display:block;color:#fff;text-decoration:none;margin-bottom:16px}
+.yt-thumb{aspect-ratio:16/9;background:#272727 center/cover;position:relative;display:flex;align-items:center;justify-content:center}
+.yt-thumb span{background:rgba(0,0,0,.6);width:42px;height:42px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:16px}
+.yt-meta{display:flex;gap:10px;padding:8px 16px 0}
+.yt-av{width:34px;height:34px;border-radius:50%;background:#3a3a3c;display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:700;flex-shrink:0}
+.yt-title{font-size:13px;font-weight:600;line-height:1.3}
+.yt-sub{font-size:11px;color:#aaa;margin-top:3px}
+.sp-row{display:flex;align-items:center;gap:12px;background:#282828;border-radius:10px;padding:10px;margin-bottom:10px;color:#fff;text-decoration:none}
+.sp-cover{width:48px;height:48px;border-radius:6px;background:#3a3a3c;display:flex;align-items:center;justify-content:center;font-size:24px;flex-shrink:0}
+.sp-mini{position:sticky;bottom:0;margin:20px -16px 0;background:#2a2a2a;padding:10px 16px 18px;display:flex;align-items:center;gap:10px}
+.sp-play{background:#fff;color:#000;border:0;border-radius:50%;width:34px;height:34px;font-size:13px;cursor:pointer}
 #toast{position:absolute;left:50%;bottom:96px;transform:translateX(-50%);background:rgba(40,40,45,.95);color:#fff;font-size:13px;padding:9px 16px;border-radius:20px;z-index:100;opacity:0;pointer-events:none;transition:opacity .25s;white-space:nowrap;max-width:90%;overflow:hidden;text-overflow:ellipsis}
 #toast.show{opacity:1}
 </style>
@@ -132,14 +148,72 @@ body{background:#0b0c10;font-family:-apple-system,BlinkMacSystemFont,"SF Pro Dis
   <div class="app-content" id="cameraApp" style="background:#000">
     <div class="app-header"><span>Kamera</span><button class="back-btn" onclick="closeApp()">Tutup</button></div>
     <div class="viewfinder">
-      <video id="cameraFeed" autoplay muted playsinline></video>
-      <div id="camStatus" style="position:absolute;bottom:12px;font-size:10px;background:rgba(0,0,0,.6);padding:3px 8px;border-radius:20px">Menyiapkan kamera...</div>
+      <video id="cameraFeed" src="https://assets.mixkit.co/videos/preview/mixkit-hands-holding-a-smartphone-with-a-green-screen-42289-large.mp4" autoplay loop muted playsinline></video>
+      <div id="camStatus" style="position:absolute;bottom:12px;font-size:10px;background:rgba(0,0,0,.6);padding:3px 8px;border-radius:20px">Kamera Belakang 🟢</div>
     </div>
     <div style="display:flex;justify-content:space-around;align-items:center;padding-top:10px">
       <div style="font-size:12px;color:#aaa">Foto</div>
       <div style="width:50px;height:50px;border:4px solid #fff;border-radius:50%;display:flex;align-items:center;justify-content:center;cursor:pointer" onclick="toast('Cekrek! 📸')"><div style="width:38px;height:38px;background:#fff;border-radius:50%"></div></div>
       <div style="font-size:12px;color:#ffcc00;cursor:pointer" onclick="toggleCamera()">🔄 Putar</div>
     </div>
+  </div>
+
+  <!-- INSTAGRAM -->
+  <div class="app-content" id="igApp" style="background:#000">
+    <div class="app-header"><span>unknown_sst</span><button class="back-btn" onclick="closeApp()">Tutup</button></div>
+    <div style="display:flex;align-items:center;justify-content:space-between;padding:5px 0">
+      <div style="width:65px;height:65px;background:#333;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:26px">👤</div>
+      <div style="display:flex;gap:18px;text-align:center;font-size:12px"><div><b style="display:block;font-size:14px">3</b>Postingan</div><div><b style="display:block;font-size:14px">10</b>Pengikut</div><div><b style="display:block;font-size:14px">10</b>Diikuti</div></div>
+    </div>
+    <div style="font-size:12px;margin-top:8px"><b>Olin / Oliv</b> ✨<br>Private Account | Just moments.</div>
+    <div style="display:flex;border-top:.5px solid #333;border-bottom:.5px solid #333;margin-top:12px">
+      <div class="ig-tab active" id="tabFeed" onclick="switchIgTab('feed')">📸 Feed</div>
+      <div class="ig-tab" id="tabReels" onclick="switchIgTab('reels')">▶️ Reels</div>
+    </div>
+    <div id="igFeed" style="display:grid;grid-template-columns:repeat(3,1fr);gap:2px;margin-top:10px">
+      <div class="thumb" style="background-image:url('foto1.jpg')" onclick="toast('Postingan 1')"></div>
+      <div class="thumb" style="background-image:url('foto2.jpg')" onclick="toast('Postingan 2')"></div>
+      <div class="thumb" style="background-image:url('foto3.jpg')" onclick="toast('Postingan 3')"></div>
+    </div>
+    <div id="igReels" style="display:none;margin-top:10px">
+      <div style="background:#222;height:220px;border-radius:12px;position:relative;overflow:hidden">
+        <video src="https://assets.mixkit.co/videos/preview/mixkit-girl-in-neon-lights-41522-large.mp4" autoplay loop muted playsinline style="width:100%;height:100%;object-fit:cover"></video>
+        <div style="position:absolute;bottom:10px;left:10px;font-size:11px;font-weight:700;text-shadow:0 1px 3px #000">@unknown_sst • Reels Moment ✨</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- YOUTUBE (beranda simulasi, link hanya terbuka kalau diketuk) -->
+  <div class="app-content" id="youtubeApp" style="background:#0f0f0f;padding:45px 0 20px">
+    <div class="app-header" style="margin:0 16px 10px"><span><b style="color:#f00">▶</b> YouTube</span><button class="back-btn" onclick="closeApp()">Tutup</button></div>
+    <div class="chips"><span class="chip on">Semua</span><span class="chip">Musik</span><span class="chip">Live</span><span class="chip">Baru diunggah</span></div>
+    <div id="ytFeed"></div>
+  </div>
+
+  <!-- SPOTIFY (beranda simulasi) -->
+  <div class="app-content" id="spotifyApp" style="background:linear-gradient(#1f3a2a,#121212 45%);padding-bottom:0">
+    <div class="app-header" style="border:0"><span>Selamat malam</span><button class="back-btn" onclick="closeApp()">Tutup</button></div>
+    <div style="font-size:13px;color:#1db954;font-weight:700;margin-bottom:10px">🎧 Rekomendasi Khusus Untukmu</div>
+    <div id="spList"></div>
+    <div class="sp-mini">
+      <div style="font-size:26px">🦊</div>
+      <div style="flex:1;min-width:0"><div style="font-size:12px;font-weight:600">Renjun Solo Track</div><div style="font-size:10px;color:#b3b3b3">NCT / Soloist</div></div>
+      <button class="sp-play" onclick="togglePlay(this)">▶</button>
+    </div>
+  </div>
+
+  <!-- OLIVE YOUNG -->
+  <div class="app-content" id="oliveyoungApp">
+    <div class="app-header"><span>Olive Young</span><button class="back-btn" onclick="closeApp()">Tutup</button></div>
+    <div style="background:#00b074;padding:12px;border-radius:12px;text-align:center;margin-bottom:12px;font-weight:700;font-size:14px">🌿 K-Beauty Special Sale</div>
+    <div style="background:#2c2c2e;padding:10px;border-radius:10px;margin-bottom:8px;font-size:13px"><b>Judydoll Tinted Sunscreen</b><br><span style="color:#00b074">₩24,000</span></div>
+    <div style="background:#2c2c2e;padding:10px;border-radius:10px;font-size:13px"><b>Rom&amp;nd Juicy Lasting Tint</b><br><span style="color:#00b074">₩13,000</span></div>
+  </div>
+
+  <!-- MAPS -->
+  <div class="app-content" id="mapsApp">
+    <div class="app-header"><span>Google Maps</span><button class="back-btn" onclick="closeApp()">Tutup</button></div>
+    <div style="background:#2c2c2e;padding:15px;border-radius:12px;text-align:center"><div style="font-size:36px;margin-bottom:8px">📍</div><h3>Depok / Jakarta, Indonesia</h3><p style="color:#8e8e93;font-size:12px">GPS Aktif • Lalu lintas lancar</p></div>
   </div>
 
   <div class="app-content" id="settingsApp">
@@ -207,46 +281,42 @@ const PAGES = [
 ];
 const DOCK = ['phone','safari','chat','spotify'];
 
-/* ===== APP ASLI: scheme = buka app di iPhone, web = link https / cadangan ===== */
-const REAL = {
-  spotify:   {scheme:'spotify:track:02W2P4Zd9a7LddUMlIH0Bp', web:'https://open.spotify.com/track/02W2P4Zd9a7LddUMlIH0Bp'},
-  ig:        {scheme:'instagram://user?username=unknown_sst', web:'https://www.instagram.com/unknown_sst/'},
-  twitter:   {scheme:'twitter://timeline', web:'https://x.com/'},
-  youtube:   {scheme:'youtube://www.youtube.com/watch?v=FFcgGFpO1n0', web:'https://youtu.be/FFcgGFpO1n0'},
-  maps:      {scheme:'comgooglemaps://?q=Depok', web:'https://www.google.com/maps/search/Depok'},
-  oliveyoung:{web:'https://global.oliveyoung.com/'},
-  safari:    {web:'https://www.google.com/'}
-};
-const IS_IOS = /iPad|iPhone|iPod/.test(navigator.userAgent) || (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
-
-function launchReal(cfg) {
-  if (IS_IOS && cfg.scheme) {
-    let left = false;
-    const onHide = () => { if (document.hidden) left = true; };
-    document.addEventListener('visibilitychange', onHide);
-    window.location.href = cfg.scheme;
-    setTimeout(() => {
-      document.removeEventListener('visibilitychange', onHide);
-      if (!left) window.location.href = cfg.web;
-    }, 1500);
-  } else {
-    window.open(cfg.web, '_blank');
-  }
-}
-
 function openApp(name) {
-  if (REAL[name]) return launchReal(REAL[name]);
   const screen = $(name + 'App');
   if (!screen) return toast('Aplikasi ' + APPS[name].n + ' belum tersedia');
   closeApp();
   screen.style.display = 'flex';
-  if (name === 'camera') startCamera();
 }
+
+function switchIgTab(t) {
+  $('igFeed').style.display = t === 'feed' ? 'grid' : 'none';
+  $('igReels').style.display = t === 'feed' ? 'none' : 'block';
+  $('tabFeed').classList.toggle('active', t === 'feed');
+  $('tabReels').classList.toggle('active', t !== 'feed');
+}
+
+/* ===== YouTube: video tampil di beranda, link hanya terbuka kalau diketuk ===== */
+const YT = [
+  ['https://youtu.be/FFcgGFpO1n0?si=zSjNYrr7gR9EX_Vz','FFcgGFpO1n0','NCT Airport Departure / Arrival'],
+  ['https://youtu.be/4QskmxtudzQ?si=ZAVgO1nlpXV1i19o','4QskmxtudzQ','Renjun / Member Focus Airport'],
+  ['https://youtu.be/BVOSll9ou7U?si=LdVFfg2Ys9roQpzb','BVOSll9ou7U','NCT Dream Flight Moments'],
+  ['https://youtu.be/LFbU0A1-IH8?si=6l2lczXvFN0MkYtF','LFbU0A1-IH8','Special Departure Update']
+];
+$('ytFeed').innerHTML = YT.map(([url, id, title]) =>
+  `<a class="yt-card" href="${url}" target="_blank" rel="noopener"><div class="yt-thumb" style="background-image:url('https://i.ytimg.com/vi/${id}/hqdefault.jpg')"><span>▶</span></div><div class="yt-meta"><div class="yt-av">N</div><div><div class="yt-title">${title}</div><div class="yt-sub">Bandara &amp; Updates</div></div></div></a>`).join('');
+
+/* ===== Spotify: lagu tampil di beranda, link hanya terbuka kalau diketuk ===== */
+const SP = [
+  ['🦊','Renjun Solo Track','NCT / Soloist','https://open.spotify.com/intl-id/track/02W2P4Zd9a7LddUMlIH0Bp?si=115a9a36cfcd4c36'],
+  ['🎵','Track Session 2','Alternative link','https://open.spotify.com/intl-id/track/02W2P4Zd9a7LddUMlIH0Bp?si=fdc228b4c2024de2']
+];
+$('spList').innerHTML = SP.map(([e, n, a, url]) =>
+  `<a class="sp-row" href="${url}" target="_blank" rel="noopener"><div class="sp-cover">${e}</div><div><div style="font-size:14px;font-weight:600">${n}</div><div style="font-size:11px;color:#b3b3b3;margin-top:2px">${a}</div></div></a>`).join('');
+function togglePlay(b) { b.textContent = b.textContent === '▶' ? '⏸' : '▶'; }
 
 function closeApp() {
   document.querySelectorAll('.app-content').forEach(el => el.style.display = 'none');
   $('photoViewer').style.display = 'none';
-  stopCamera();
 }
 
 /* ===== Render home & dock ===== */
@@ -336,26 +406,16 @@ $('galleryGrid').innerHTML = g;
 function openPhoto(src) { $('viewerImage').src = src; $('photoViewer').style.display = 'flex'; }
 function closePhoto() { $('photoViewer').style.display = 'none'; }
 
-/* ===== Kamera asli ===== */
-let camStream = null, camFacing = 'environment';
-async function startCamera() {
-  const video = $('cameraFeed'), status = $('camStatus');
-  stopCamera();
-  try {
-    camStream = await navigator.mediaDevices.getUserMedia({video: {facingMode: camFacing}, audio: false});
-    video.srcObject = camStream;
-    await video.play();
-    status.innerText = camFacing === 'user' ? 'Kamera Depan 🟢' : 'Kamera Belakang 🟢';
-  } catch (e) {
-    status.innerText = 'Kamera tidak tersedia atau izin ditolak';
-  }
-}
-function stopCamera() {
-  if (camStream) { camStream.getTracks().forEach(t => t.stop()); camStream = null; }
-}
+/* ===== Kamera (simulasi, tanpa izin kamera) ===== */
+let frontCam = false;
+const CAM = {
+  back: 'https://assets.mixkit.co/videos/preview/mixkit-hands-holding-a-smartphone-with-a-green-screen-42289-large.mp4',
+  front: 'https://assets.mixkit.co/videos/preview/mixkit-woman-looking-at-her-smartphone-in-a-room-42867-large.mp4'
+};
 function toggleCamera() {
-  camFacing = camFacing === 'user' ? 'environment' : 'user';
-  startCamera();
+  frontCam = !frontCam;
+  $('cameraFeed').src = frontCam ? CAM.front : CAM.back;
+  $('camStatus').innerText = frontCam ? 'Kamera Depan 🟢' : 'Kamera Belakang 🟢';
 }
 </script>
 </body>
